@@ -1,4 +1,4 @@
-/* Copyright 2019 Ian Canino (ian@thecommittedbug.io)
+/* Copyright 2019 Takuya Urakawa (dm9records.com)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,3 +17,5 @@
 #pragma once
 
 // place overrides here
+#define TAPPING_FORCE_HOLD
+#define TAPPING_TERM 180
