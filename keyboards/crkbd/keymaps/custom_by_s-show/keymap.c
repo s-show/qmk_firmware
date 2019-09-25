@@ -54,8 +54,8 @@ enum {
   TRD_MHEN_LOWER
 };
 
-#define KC_LOWER MO(_LOWER)
-#define KC_RAISE MO(_RAISE)
+// #define KC_LOWER MO(_LOWER)
+// #define KC_RAISE MO(_RAISE)
 #define KC_ADJUST MO(_ADJUST)
 #define KC_FN MO(_FN)
 
@@ -66,8 +66,8 @@ void triple_functions_reset (qk_tap_dance_state_t *state, void *user_data);
 
 #define KC______ KC_TRNS
 #define KC_XXXXX KC_NO
-// #define KC_LOWER LOWER
-// #define KC_RAISE RAISE
+#define KC_LOWER LOWER
+#define KC_RAISE RAISE
 #define KC_RST   RESET
 #define KC_LRST  RGBRST
 #define KC_LTOG  RGB_TOG
@@ -83,6 +83,7 @@ void triple_functions_reset (qk_tap_dance_state_t *state, void *user_data);
 // #define KC_ALTKN ALT_T(KC_LANG1)
 #define KC_CAD LCA(KC_DEL)
 #define KC_APSCR LALT(KC_PSCR)
+#define KC_AGRV LALT(KC_GRV)
 
 // For Double Tap & Triple Function
 #define KC_T_LBRC TD(TD_LBRC_LPRN)
@@ -104,7 +105,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
        LSFT,     Z,     X,     C,     V,     B,                      N,     M,  COMM,   DOT,  SLSH,    FN,\
   //|------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
-                                   LGUI,T_LOWER,  SPC,      SPC, T_RAISE, RALT \
+                                   LGUI,  LOWER,  SPC,      SPC,  RAISE, RALT \
                               //`--------------------'  `--------------------'
   ),
 
@@ -116,19 +117,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
       _____, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,                  XXXXX,   APP, XXXXX,  RALT,  RGUI, _____,\
   //|------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
-                                   LGUI,T_LOWER,  SPC,      ENT,T_RAISE, RALT \
+                                  _____, _____, _____,      ENT, _____, _____ \
                               //`--------------------'  `--------------------'
   ),
 
   [_RAISE] = LAYOUT_kc( \
   //,-----------------------------------------.                ,-----------------------------------------.
-      LANG5, XXXXX,  PGUP,   ESC, XXXXX,   TAB,                  XXXXX, XXXXX,   INS, XXXXX,  PSCR,  PIPE,\
+       AGRV, XXXXX,  PGUP,   ESC, XXXXX,   TAB,                  XXXXX, XXXXX,   INS, XXXXX,  PSCR,  PIPE,\
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
       _____,  HOME,  PGDN,   END, XXXXX, XXXXX,                   LEFT,  DOWN,    UP,  RGHT, XXXXX, XXXXX,\
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
       _____, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,                  XXXXX,   APP, XXXXX,  RALT,  RGUI, _____,\
   //|------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
-                                   LGUI,T_LOWER,  ENT,      SPC,T_RAISE, RALT \
+                                  _____, _____,   ENT,    _____, _____, _____ \
                               //`--------------------'  `--------------------'
   ),
 
@@ -140,7 +141,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
       _____, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,                  XXXXX, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,\
   //|------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
-                                   LGUI,T_LOWER,  SPC,      ENT,T_RAISE, RALT \
+                                  _____, _____, _____,      ENT, _____, _____ \
                               //`--------------------'  `--------------------'
   ),
 
@@ -152,7 +153,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
       _____, _____, _____, _____, _____, _____,                  _____, _____, _____, _____, _____, _____,\
   //|------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
-                                   LGUI,T_LOWER,  SPC,      ENT,T_RAISE, RALT \
+                                  _____, _____, _____,      ENT, _____, _____ \
                               //`--------------------'  `--------------------'
   )
 };
@@ -231,6 +232,11 @@ void iota_gfx_task_user(void) {
 }
 #endif//SSD1306OLED
 
+static bool lower_pressed = false;
+static uint16_t lower_pressed_time = 0;
+static bool raise_pressed = false;
+static uint16_t raise_pressed_time = 0;
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   if (record->event.pressed) {
 #ifdef SSD1306OLED
@@ -266,6 +272,48 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     //   }
     //   return false;
     //   break;
+    case LOWER:
+      if (record->event.pressed) {
+        lower_pressed = true;
+        lower_pressed_time = record->event.time;
+
+        layer_on(_LOWER);
+        update_tri_layer(_LOWER, _RAISE, _ADJUST);
+      } else {
+        layer_off(_LOWER);
+        update_tri_layer(_LOWER, _RAISE, _ADJUST);
+
+        if (lower_pressed && (TIMER_DIFF_16(record->event.time, lower_pressed_time) < TAPPING_TERM)) {
+          register_code(KC_LANG2); // for macOS
+          register_code(KC_MHEN);
+          unregister_code(KC_MHEN);
+          unregister_code(KC_LANG2);
+        }
+        lower_pressed = false;
+      }
+      return false;
+      break;
+    case RAISE:
+      if (record->event.pressed) {
+        raise_pressed = true;
+        raise_pressed_time = record->event.time;
+
+        layer_on(_RAISE);
+        update_tri_layer(_LOWER, _RAISE, _ADJUST);
+      } else {
+        layer_off(_RAISE);
+        update_tri_layer(_LOWER, _RAISE, _ADJUST);
+
+        if (raise_pressed && (TIMER_DIFF_16(record->event.time, raise_pressed_time) < TAPPING_TERM)) {
+          register_code(KC_LANG1); // for macOS
+          register_code(KC_HENK);
+          unregister_code(KC_HENK);
+          unregister_code(KC_LANG1);
+        }
+        raise_pressed = false;
+      }
+      return false;
+      break;
     case ADJUST:
       if (record->event.pressed) {
         layer_on(_ADJUST);
