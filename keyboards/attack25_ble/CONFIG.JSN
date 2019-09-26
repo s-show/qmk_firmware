@@ -1,0 +1,56 @@
+{
+  "config": {
+    "version": 2,
+    "device_info": {
+      "vid": "0xFEED",
+      "pid": "0xF109",
+      "name": "Attack25_ble",
+      "manufacture": "monksoffunk",
+      "description": "5x5 Keyboard Pad BLE Ver"
+    },
+    "matrix": {
+      "rows": 5,
+      "cols": 5,
+      "device_rows": 5,
+      "device_cols": 5,
+      "debounce": 1,
+      "is_left_hand": 1,
+      "diode_direction": 0,
+      "row_pins": [
+        7, 8, 9, 19, 18
+      ],
+      "col_pins": [
+        11,12, 13, 14, 15 ],
+      "layout": [
+         1,  6, 11, 16, 21, 0,
+         2,  7, 12, 17, 22, 0,
+         3,  8, 13, 18, 23, 0,
+         4,  9, 14, 19, 24, 0,
+         5, 10, 15, 20, 25
+      ]
+    },
+    "mode": "SINGLE",
+    "startup": 0,
+    "peripheral": {
+      "max_interval": 60,
+      "min_interval": 30,
+      "slave_latency": 7
+    },
+    "central": {
+      "max_interval": 60,
+      "min_interval": 30,
+      "slave_latency": 7
+    },
+    "led": {
+      "pin": 255,
+      "num": 128
+    },
+    "keymap": {
+      "locale": "US",
+      "use_ascii": 0
+    },
+    "reserved": [
+      0, 0, 0, 0, 0, 0, 0, 0
+    ]
+  }
+}

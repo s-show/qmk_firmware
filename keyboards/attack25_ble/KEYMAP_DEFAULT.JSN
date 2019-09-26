@@ -1,0 +1,30 @@
+{"layers":
+	[
+		["KC_NLCK","KC_PSLS","KC_PAST","KC_PMNS","LT(3, KC_ESC)"],
+		["KC_P7","KC_P8","KC_P9","KC_PPLS","LT(2, KC_SLCK)"],
+		["KC_P4","KC_P5","KC_P6","LSFT(KC_TAB)","KC_PSCR"],
+		["KC_P1","KC_P2","KC_P3","KC_TAB","KC_DEL"],
+		["KC_P0","P00","KC_PDOT","KC_PENT","KC_BSPC"]
+	],
+	[
+    ["KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS"],
+    ["KC_HOME", "KC_UP", "KC_PGUP", "KC_TRNS", "KC_TRNS"],
+    ["KC_LEFT", "KC_NO", "KC_RGHT", "KC_TRNS", "KC_PSCR"],
+    ["KC_END", "KC_DOWN", "KC_PGDN", "KC_TRNS", "KC_TRNS"],
+    ["KC_INS", "P00", "KC_DEL", "KC_TRNS", "KC_TRNS"]
+	],
+	[
+    ["KC_F10", "KC_F11", "KC_F12", "KC_TRNS", "KC_TRNS"],
+    ["KC_F7", "KC_F8", "KC_F9", "KC_TRNS", "KC_TRNS"],
+    ["KC_F4", "KC_F5", "KC_F6", "KC_TRNS", "KC_TRNS"],
+    ["KC_F1", "KC_F2", "KC_F3", "KC_TRNS", "WINMAC"],
+    ["KC_NO", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS"]
+	],
+	[
+    ["AD_WO_L", "BLE_EN", "USB_EN", "BATT_LV", "KC_TRNS"],
+    ["DELBNDS", "BLE_DIS", "USB_DIS", "ENT_SLP", "KC_NO"],
+    ["ADV_ID4", "KC_NO", "KC_NO", "KC_NO", "KC_NO"],
+    ["ADV_ID1", "ADV_ID2", "ADV_ID3", "KC_NO", "ENT_DFU"],
+    ["ADV_ID0", "DEL_ID0", "DEL_ID1", "DEL_ID2", "DEL_ID3"]
+  ]
+}
