@@ -34,7 +34,9 @@ enum custom_keycodes {
   ADJUST,
   BACKLIT,
   RGBRST,
-  FN
+  FN,
+  IMEON,
+  IMEOFF
 };
 
 enum macro_keycodes {
@@ -51,11 +53,12 @@ enum {
   TD_EQL_PLUS,
   TD_QUOT_DQUO,
   TRD_HENK_RAISE,
-  TRD_MHEN_LOWER
+  TRD_MHEN_LOWER,
+  TD_HOGE
 };
 
-// #define KC_LOWER MO(_LOWER)
-// #define KC_RAISE MO(_RAISE)
+int mod_state_count;
+
 #define KC_ADJUST MO(_ADJUST)
 #define KC_FN MO(_FN)
 
@@ -78,12 +81,11 @@ void triple_functions_reset (qk_tap_dance_state_t *state, void *user_data);
 #define KC_LVAI  RGB_VAI
 #define KC_LVAD  RGB_VAD
 #define KC_LMOD  RGB_MOD
-// #define KC_CTLTB CTL_T(KC_TAB)
-// #define KC_GUIEI GUI_T(KC_LANG2)
-// #define KC_ALTKN ALT_T(KC_LANG1)
 #define KC_CAD LCA(KC_DEL)
 #define KC_APSCR LALT(KC_PSCR)
 #define KC_AGRV LALT(KC_GRV)
+#define KC_IMEON  IMEON
+#define KC_IMEOFF IMEOFF
 
 // For Double Tap & Triple Function
 #define KC_T_LBRC TD(TD_LBRC_LPRN)
@@ -95,6 +97,7 @@ void triple_functions_reset (qk_tap_dance_state_t *state, void *user_data);
 #define KC_T_QUOT TD(TD_QUOT_DQUO)
 #define KC_T_RAISE TD(TRD_HENK_RAISE)
 #define KC_T_LOWER TD(TRD_MHEN_LOWER)
+#define KC_T_HOGE TD(TD_HOGE)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_QWERTY] = LAYOUT_kc( \
@@ -105,7 +108,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
        LSFT,     Z,     X,     C,     V,     B,                      N,     M,  COMM,   DOT,  SLSH,    FN,\
   //|------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
-                                   LGUI,  LOWER,  SPC,      SPC,  RAISE, RALT \
+                                   LGUI,  LOWER,  SPC,      SPC,  RAISE, LALT\
                               //`--------------------'  `--------------------'
   ),
 
@@ -115,7 +118,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
       _____, XXXXX, XXXXX,   DEL, XXXXX, XXXXX,                   BSPC,T_MINS, T_EQL,T_LBRC,T_RBRC, _____,\
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-      _____, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,                  XXXXX,   APP, XXXXX,  RALT,  RGUI, _____,\
+      _____, XXXXX, XXXXX, XXXXX, XXXXX,IMEOFF,                 IMEON,   APP, XXXXX,  RALT,  RGUI, _____,\
   //|------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
                                   _____, _____, _____,      ENT, _____, _____ \
                               //`--------------------'  `--------------------'
@@ -232,11 +235,6 @@ void iota_gfx_task_user(void) {
 }
 #endif//SSD1306OLED
 
-static bool lower_pressed = false;
-static uint16_t lower_pressed_time = 0;
-static bool raise_pressed = false;
-static uint16_t raise_pressed_time = 0;
-
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   if (record->event.pressed) {
 #ifdef SSD1306OLED
@@ -252,65 +250,23 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
       break;
-    // case LOWER:
-    //   if (record->event.pressed) {
-    //     layer_on(_LOWER);
-    //     update_tri_layer_RGB(_LOWER, _RAISE, _ADJUST);
-    //   } else {
-    //     layer_off(_LOWER);
-    //     update_tri_layer_RGB(_LOWER, _RAISE, _ADJUST);
-    //   }
-    //   return false;
-    //   break;
-    // case RAISE:
-    //   if (record->event.pressed) {
-    //     layer_on(_RAISE);
-    //     update_tri_layer_RGB(_LOWER, _RAISE, _ADJUST);
-    //   } else {
-    //     layer_off(_RAISE);
-    //     update_tri_layer_RGB(_LOWER, _RAISE, _ADJUST);
-    //   }
-    //   return false;
-    //   break;
     case LOWER:
       if (record->event.pressed) {
-        lower_pressed = true;
-        lower_pressed_time = record->event.time;
-
         layer_on(_LOWER);
-        update_tri_layer(_LOWER, _RAISE, _ADJUST);
+        update_tri_layer_RGB(_LOWER, _RAISE, _ADJUST);
       } else {
         layer_off(_LOWER);
-        update_tri_layer(_LOWER, _RAISE, _ADJUST);
-
-        if (lower_pressed && (TIMER_DIFF_16(record->event.time, lower_pressed_time) < TAPPING_TERM)) {
-          register_code(KC_LANG2); // for macOS
-          register_code(KC_MHEN);
-          unregister_code(KC_MHEN);
-          unregister_code(KC_LANG2);
-        }
-        lower_pressed = false;
+        update_tri_layer_RGB(_LOWER, _RAISE, _ADJUST);
       }
       return false;
       break;
     case RAISE:
       if (record->event.pressed) {
-        raise_pressed = true;
-        raise_pressed_time = record->event.time;
-
         layer_on(_RAISE);
-        update_tri_layer(_LOWER, _RAISE, _ADJUST);
+        update_tri_layer_RGB(_LOWER, _RAISE, _ADJUST);
       } else {
         layer_off(_RAISE);
-        update_tri_layer(_LOWER, _RAISE, _ADJUST);
-
-        if (raise_pressed && (TIMER_DIFF_16(record->event.time, raise_pressed_time) < TAPPING_TERM)) {
-          register_code(KC_LANG1); // for macOS
-          register_code(KC_HENK);
-          unregister_code(KC_HENK);
-          unregister_code(KC_LANG1);
-        }
-        raise_pressed = false;
+        update_tri_layer_RGB(_LOWER, _RAISE, _ADJUST);
       }
       return false;
       break;
@@ -348,6 +304,22 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           RGB_current_mode = rgblight_config.mode;
         }
       #endif
+      break;
+    case KC_IMEON:
+      if (record->event.pressed) {
+        register_code(KC_LANG1); // for macOS
+        register_code(KC_HENK);
+        unregister_code(KC_LANG1);
+        unregister_code(KC_HENK);
+      }
+      break;
+    case KC_IMEOFF:
+      if (record->event.pressed) {
+        register_code(KC_LANG2); // for macOS
+        register_code(KC_MHEN);
+        unregister_code(KC_LANG2);
+        unregister_code(KC_MHEN);
+      }
       break;
   }
   return true;
@@ -474,6 +446,20 @@ void dance_cln_finished (qk_tap_dance_state_t *state, void *user_data) {
         register_code (KC_PDOT);
       } else if (state->count == 2) {
         register_code (KC_PCMM);
+      }
+      break;
+    case TD(TD_HOGE):
+      mod_state_count = state->count % 5;
+      if (mod_state_count == 1) {
+        SEND_STRING("a");
+      } else if (mod_state_count == 2) {
+        SEND_STRING("i");
+      } else if (mod_state_count == 3) {
+        SEND_STRING("u");
+      } else if (mod_state_count == 4) {
+        SEND_STRING("e");
+      } else if (mod_state_count == 0) {
+        SEND_STRING("o");
       }
       break;
   }
@@ -746,12 +732,6 @@ void triple_functions_reset (qk_tap_dance_state_t *state, void *user_data) {  //
 # - on_dance_reset_fn -> on_dance_finished_fnが実行された後、TapDanceの処理をリセットする際に実行される。
 */
 qk_tap_dance_action_t tap_dance_actions[] = {
-//  [TD_LBRC_LPRN]       = ACTION_TAP_DANCE_FN_ADVANCED(dance_each_tap, dance_withBS_cln_finished, dance_withBS_cln_reset),
-//  [TD_RBRC_RPRN]       = ACTION_TAP_DANCE_FN_ADVANCED(dance_each_tap, dance_withBS_cln_finished, dance_withBS_cln_reset),
-//  [TD_SCLN_COLN]       = ACTION_TAP_DANCE_FN_ADVANCED(dance_each_tap, dance_withBS_cln_finished, dance_withBS_cln_reset),
-//  [TD_MINS_UNDERSCORE] = ACTION_TAP_DANCE_FN_ADVANCED(dance_each_tap, dance_withBS_cln_finished, dance_withBS_cln_reset),
-//  [TD_EQL_PLUS]        = ACTION_TAP_DANCE_FN_ADVANCED(dance_each_tap, dance_withBS_cln_finished, dance_withBS_cln_reset),
-//  [TD_QUOT_DQUO]       = ACTION_TAP_DANCE_FN_ADVANCED(dance_each_tap, dance_withBS_cln_finished, dance_withBS_cln_reset),
   [TD_PERIOD_COMMA]    = ACTION_TAP_DANCE_DOUBLE(KC_DOT, KC_COMM),
   [TD_LBRC_LPRN]       = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_cln_finished, dance_cln_reset),
   [TD_RBRC_RPRN]       = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_cln_finished, dance_cln_reset),
@@ -760,5 +740,6 @@ qk_tap_dance_action_t tap_dance_actions[] = {
   [TD_EQL_PLUS]        = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_cln_finished, dance_cln_reset),
   [TD_QUOT_DQUO]       = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_cln_finished, dance_cln_reset),
   [TRD_HENK_RAISE]     = ACTION_TAP_DANCE_FN_ADVANCED_TIME(triple_functions_each_tap, triple_functions_finished, triple_functions_reset, 200),
-  [TRD_MHEN_LOWER]     = ACTION_TAP_DANCE_FN_ADVANCED_TIME(triple_functions_each_tap, triple_functions_finished, triple_functions_reset, 200)
+  [TRD_MHEN_LOWER]     = ACTION_TAP_DANCE_FN_ADVANCED_TIME(triple_functions_each_tap, triple_functions_finished, triple_functions_reset, 200),
+  [TD_HOGE]            = ACTION_TAP_DANCE_FN_ADVANCED_TIME(NULL, dance_cln_finished, dance_cln_reset, 400)
 };
