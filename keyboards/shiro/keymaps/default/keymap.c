@@ -21,14 +21,19 @@ enum layer_number {
   _MOUSE
 };
 
+enum {
+  TD_HOGE = 0,
+};
+
 #define NUMBER TO(_NUMBER)
 #define CURSOL TO(_CURSOL)
 #define MOUSE  TO(_MOUSE)
+#define KC_HOGE TD(TD_HOGE)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_NUMBER] = LAYOUT( 
     NUMBER,   CURSOL,   MOUSE,
-    KC_P7,    KC_P8,    KC_P9,
+    KC_HOGE,  KC_P8,    KC_P9,
     KC_P4,    KC_P5,    KC_P6,
     KC_P1,    KC_P2,    KC_P3,
     KC_P0,    KC_BSPC,  KC_ENT
@@ -47,4 +52,31 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     XXXXXXX,  XXXXXXX,  XXXXXXX,
     KC_DEL,   KC_BSPC,  KC_ENT
   ),
+};
+
+void dance_cln_finished (qk_tap_dance_state_t *state, void *user_data) {
+  switch (state->keycode) {
+    case TD(TD_HOGE):
+      if (state->count == 1) {
+        register_code (KC_PDOT);
+      } else if (state->count == 2) {
+        register_code (KC_PCMM);
+      }
+      break;
+  }
+}
+
+void dance_cln_reset (qk_tap_dance_state_t *state, void *user_data) {  // TapDanceの最後のリセット処理で実行される
+  switch (state->keycode) {
+    case TD(TD_HOGE):
+      if (state->count == 1) {
+        unregister_code (KC_PDOT);
+      } else if (state->count == 2) {
+        unregister_code (KC_PCMM);
+      }
+      break;
+  }
+}
+qk_tap_dance_action_t tap_dance_actions[] = {
+  [TD_HOGE]       = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_cln_finished, dance_cln_reset)
 };
