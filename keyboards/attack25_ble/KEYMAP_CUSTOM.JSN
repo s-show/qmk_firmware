@@ -4,7 +4,7 @@
 		["KC_P7","KC_P8","KC_P9","KC_PPLS","KC_EQL"],
 		["KC_P4","KC_P5","KC_P6","KC_PPLS","LT(2, KC_LPRN)"],
 		["KC_P1","KC_P2","KC_P3","KC_PENT","KC_RPRN"],
-		["KC_P0","P00","KC_PDOT","KC_PENT","KC_BSPC"]
+		["KC_P0","P00",TDD("KC_PDOT", "KC_PCMM"),"KC_PENT","KC_BSPC"]
 	],
 	[
     ["KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS"],
@@ -18,7 +18,7 @@
     ["KC_F7", "KC_F8", "KC_F9", "KC_TRNS", "KC_TRNS"],
     ["KC_F4", "KC_F5", "KC_F6", "KC_TRNS", "KC_TRNS"],
     ["KC_F1", "KC_F2", "KC_F3", "KC_TRNS", "WINMAC"],
-    ["KC_NO", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS"]
+    ["KC_NO", "KC_TRNS", "KC_DEL", "KC_TRNS", "KC_TRNS"]
 	],
 	[
     ["AD_WO_L", "BLE_EN", "USB_EN", "BATT_LV", "KC_TRNS"],

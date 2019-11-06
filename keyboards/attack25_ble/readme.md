@@ -22,3 +22,11 @@ Make example for this keyboard (after setting up your build environment):
 1. Edit the `KEYMAP.JSN` file in ATTACK25 to customize the keymap.
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
+
+
+*** To use this keymap, custom firmware must be written to Attack25. The custom firmware is `ble_micro_pro_attack25_ble.zip` in the same directory as this` readme.md` file.
+Custom firmware can be written with the following command:
+
+`nrfutil dfu usb-serial -pkg ble_micro_pro_attack25_ble.zip -p / dev / tty.usbmodem0000000000011`
+
+Note: For `/ dev / tty.usbmodem0000000000011`, specify the“ Attack25 ”serial port in your environment.
