@@ -23,14 +23,8 @@ MCU = atmega328p
 # OPT_DEFS += -DBOOTLOADER_SIZE=4096
 OPT_DEFS += -DBOOTLOADER_SIZE=2048
 
-# Flash program via avrdude, but default command is not suitable.
-# You can use plaid:default:program
-PROGRAM_CMD = avrdude -c usbasp -p m328p -U flash:w:$(BUILD_DIR)/$(TARGET).hex
-
-
 # disable debug code
 OPT_DEFS = -DDEBUG_LEVEL=0
-
 
 # Build Options
 #   change yes to no to disable
