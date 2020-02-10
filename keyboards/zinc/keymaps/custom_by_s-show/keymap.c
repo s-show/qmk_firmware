@@ -81,10 +81,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = { \
       ),
 
   [_LOWER] = LAYOUT_ortho_4x12( \
-      KC_AGRV, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                      KC_6,     KC_7,       KC_8,     KC_9,    KC_0,    KC_BSLS, \
-      _______, KC_NO,   KC_NO,   KC_DEL,  KC_NO,   KC_NO,                     KC_BSPC,  KC_T_MINS,  KC_T_EQL, KC_LBRC, KC_RBRC, KC_NO, \
-      _______, KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_IMEOFF,                 KC_IMEON, KC_APP ,    _______,  KC_RALT, KC_RGUI, _______, \
-      _______, _______, _______, _______, _______, _______,                   KC_ENT ,  _______,    KC_MNXT,  KC_VOLD, KC_VOLU, KC_MPLY \
+      KC_AGRV, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                      KC_6,     KC_7,       KC_8,     KC_9,      KC_0,      KC_BSLS, \
+      _______, KC_NO,   KC_NO,   KC_DEL,  KC_NO,   KC_NO,                     KC_BSPC,  KC_T_MINS,  KC_T_EQL, KC_T_LBRC, KC_T_RBRC, KC_NO, \
+      _______, KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_IMEOFF,                 KC_IMEON, KC_APP ,    _______,  KC_RALT,   KC_RGUI,   _______, \
+      _______, _______, _______, _______, _______, _______,                   KC_ENT ,  _______,    KC_MNXT,  KC_VOLD,   KC_VOLU,   KC_MPLY \
       ),
 
   [_RAISE] = LAYOUT_ortho_4x12( \
@@ -96,7 +96,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = { \
 
     [_ADJUST] =  LAYOUT_ortho_4x12( \
       RESET,    KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC,                   KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN,  KC_NO, \
-      _______,  KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,                     KC_LEFT, KC_DOWN, KC_UP,   KC_CAD,  KC_APSCR, KC_PAUS,\
+      _______,  KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,                     KC_NO,   KC_NO,   KC_NO,   KC_CAD,  KC_APSCR, KC_PAUS,\
       _______,  KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,                     KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,    _______, \
       _______,  _______, _______, _______, _______, _______,                   _______, _______, KC_HOME, KC_PGDN, KC_PGUP,  KC_END\
       ),
