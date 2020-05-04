@@ -32,11 +32,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_ROWS 8
 #define MATRIX_COLS 6
 
-/* Select hand configuration */
-#define MASTER_LEFT
-//#define MASTER_RIGHT
-//#define EE_HANDS
-
 /*
  * Keyboard Matrix Assignments
  *
@@ -54,9 +49,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW
 
+/* Select hand configuration */
+#define MASTER_LEFT
+//#define MASTER_RIGHT
+//#define EE_HANDS
+
 /* Use I2C or Serial */
 #define USE_SERIAL
 #define SOFT_SERIAL_PIN D2
+
+#define SPLIT_USB_DETECT
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCE 5
