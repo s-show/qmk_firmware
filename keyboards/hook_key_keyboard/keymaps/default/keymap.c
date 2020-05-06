@@ -86,7 +86,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = { \
 
     [_ADJUST] =  LAYOUT( \
       RESET,      KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC,    KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN,  KC_NO, \
-      DEBUG,      KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,      KC_NO,   KC_NO,   KC_NO,   KC_CAD,  KC_APSCR, KC_PAUS,\
+      DEBUG,      KC_WAKE, KC_SLEP, KC_POWER,KC_NO,   KC_NO,      KC_NO,   KC_NO,   KC_NO,   KC_CAD,  KC_APSCR, KC_PAUS,\
       S(KC_RSFT), KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,      KC_NO,   KC_NO,   _______, _______, _______, _______, \
       _______,    _______, _______, _______, _______, _______,    _______, _______, _______, _______, _______,  _______ \
       )
@@ -149,7 +149,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   return true;
 }
 
-/* 
+/*
 / This setting for only DoubleTap.
 */
 
@@ -165,8 +165,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #   bool interrupted;
 #   bool pressed;
 #   bool finished;
-# qk_tap_dance_state_t; 
-*/ 
+# qk_tap_dance_state_t;
+*/
 void dance_cln_finished (qk_tap_dance_state_t *state, void *user_data) {
   switch (state->keycode) {
     case TD(TD_LBRC_LPRN):
