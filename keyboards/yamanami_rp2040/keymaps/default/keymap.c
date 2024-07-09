@@ -36,7 +36,8 @@ enum custom_keycodes {
   LOWER,
   RAISE,
   ADJUST,
-  ALT_TAB
+  ALT_TAB,
+  SFT_SPC,
 };
 
 // alias other keycode
@@ -50,30 +51,42 @@ enum custom_keycodes {
 // combo setting start
 enum combo_events {
   SDF_ALT_SPACE,
-  JK_IME_ON,
-  DF_IME_OFF,
+  /* JK_IME_ON,
+  DF_IME_OFF, */
   DOTSLSH_ALT,
   ZX_ALT,
   MCOMM_WIN,
   CV_WIN,
+  SD_CTRL,
+  KL_CTRL,
+  XC_SALT,
+  COMMDOT_SALT,
 };
 
 const uint16_t PROGMEM sdf_combo[] = {KC_S, KC_D, KC_F, COMBO_END};
-const uint16_t PROGMEM jk_combo[] = {KC_J, KC_K, COMBO_END};
-const uint16_t PROGMEM df_combo[] = {KC_D, KC_F, COMBO_END};
+/* const uint16_t PROGMEM jk_combo[] = {KC_J, KC_K, COMBO_END};
+const uint16_t PROGMEM df_combo[] = {KC_D, KC_F, COMBO_END}; */
 const uint16_t PROGMEM dotslsh_combo[] = {KC_DOT, KC_SLSH, COMBO_END};
 const uint16_t PROGMEM zx_combo[] = {KC_Z, KC_X, COMBO_END};
 const uint16_t PROGMEM mcomm_combo[] = {KC_M, KC_COMM, COMBO_END};
 const uint16_t PROGMEM cv_combo[] = {KC_C, KC_V, COMBO_END};
+const uint16_t PROGMEM sd_combo[] = {KC_S, KC_D, COMBO_END};
+const uint16_t PROGMEM kl_combo[] = {KC_K, KC_L, COMBO_END};
+const uint16_t PROGMEM xc_combo[] = {KC_X, KC_C, COMBO_END};
+const uint16_t PROGMEM commdot_combo[] = {KC_COMM, KC_DOT, COMBO_END};
 
 combo_t key_combos[] = {
   [SDF_ALT_SPACE] = COMBO_ACTION(sdf_combo),
-  [JK_IME_ON] = COMBO_ACTION(jk_combo),
-  [DF_IME_OFF] = COMBO_ACTION(df_combo),
+  /* [JK_IME_ON] = COMBO_ACTION(jk_combo),
+  [DF_IME_OFF] = COMBO_ACTION(df_combo), */
   [DOTSLSH_ALT] = COMBO(dotslsh_combo, KC_LALT),
   [ZX_ALT] = COMBO(zx_combo, KC_LALT),
   [MCOMM_WIN] = COMBO(mcomm_combo, KC_LWIN),
   [CV_WIN] = COMBO(cv_combo, KC_LWIN),
+  [SD_CTRL] = COMBO(sd_combo, KC_LCTL),
+  [KL_CTRL] = COMBO(kl_combo, KC_LCTL),
+  [XC_SALT] = COMBO_ACTION(xc_combo),
+  [COMMDOT_SALT] = COMBO_ACTION(commdot_combo),
 };
 
 void process_combo_event(uint16_t combo_index, bool pressed) {
@@ -83,7 +96,7 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
         tap_code16(LALT(KC_SPACE));
       }
       break;
-    case JK_IME_ON:
+    /* case JK_IME_ON:
       if (pressed) {
         tap_code16(KC_LNG1);
       }
@@ -91,6 +104,24 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
     case DF_IME_OFF:
       if (pressed) {
         tap_code16(KC_LNG2);
+      }
+      break; */
+    case XC_SALT:
+      if (pressed) {
+        register_code(KC_LSFT);
+        register_code(KC_LALT);
+      } else {
+        unregister_code(KC_LSFT);
+        unregister_code(KC_LALT);
+      }
+      break;
+    case COMMDOT_SALT:
+      if (pressed) {
+        register_code(KC_LSFT);
+        register_code(KC_LALT);
+      } else {
+        unregister_code(KC_LSFT);
+        unregister_code(KC_LALT);
       }
       break;
   }
@@ -104,7 +135,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = { \
       KC_TAB,   KC_Q,       KC_W,       KC_E,       KC_R,      KC_T,             KC_Y,       KC_U,       KC_I,    KC_O,        KC_P,     KC_GRV,  \
       KC_LCTL,  KC_A,       KC_S,       KC_D,       KC_F,      KC_G,             KC_H,       KC_J,       KC_K,    KC_L,        KC_SCLN,  KC_QUOT, \
       KC_LSFT,  KC_Z,       KC_X,       KC_C,       KC_V,      KC_B,             KC_N,       KC_M,       KC_COMM, KC_DOT,      KC_SLSH,  KC_ENT,  \
-      ALT_TAB,  KC_ESC,     KC_LALT,    KC_LGUI,    LOWER,     SFT_T(KC_SPC),    KC_BSPC,    RAISE,      KC_RGUI, KC_RALT,     KC_RCTL,  ALT_TAB \
+      ALT_TAB,  KC_ESC,     KC_LALT,    KC_LGUI,    LOWER,     SFT_SPC,    KC_BSPC,    RAISE,      KC_RGUI, KC_RALT,     KC_RCTL,  ALT_TAB \
       ),
 
   [_LOWER] = LAYOUT( \
@@ -118,7 +149,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = { \
       KC_AGRV,  KC_NO,      KC_PGUP,    KC_ESC,     KC_NO,     KC_TAB,           KC_NO,      KC_NO,      KC_INS,  KC_NO,       KC_PSCR,  KC_NO,   \
       _______,  KC_HOME,    KC_PGDN,    KC_END,     KC_NO,     KC_NO,            KC_LEFT,    KC_DOWN,    KC_UP,   KC_RGHT,     KC_NO,    KC_NO,   \
       _______,  A(KC_HOME), C(KC_PGDN), C(KC_PGUP), C(KC_END), KC_NO,            KC_NO,      KC_NO,      _______, _______,     _______,  _______, \
-      _______,  _______,    _______,    _______,    _______,   SFT_T(KC_ENT),    _______,    _______,    _______, _______,     _______,  _______ \
+      _______,  _______,    _______,    _______,    _______,   KC_ENT,    _______,    _______,    _______, _______,     _______,  _______ \
       ),
 
   [_ADJUST] =  LAYOUT( \
@@ -129,59 +160,37 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = { \
       )
 };
 
-static bool first_lower_pressed = false;
-static uint16_t first_lower_pressed_time = 0;
-static bool first_raise_pressed = false;
-static uint16_t first_raise_pressed_time = 0;
+static uint16_t lower_pressed_time = 0;
+static uint16_t raise_pressed_time = 0;
+static uint16_t sft_spc_pressed_time = 0;
+static _Bool    rolling_keys_pressed_flag = false;
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     case LOWER:
       if (record->event.pressed) {
-        if (!first_lower_pressed) {
-          first_lower_pressed_time = record->event.time;
-        } else if (first_lower_pressed && (TIMER_DIFF_16(record->event.time, first_lower_pressed_time) > TAPPING_TERM * 2)) {
-          first_lower_pressed_time = record->event.time;
-          first_lower_pressed = false;
-        }
+        lower_pressed_time = record->event.time;
         layer_on(_LOWER);
         update_tri_layer(_LOWER, _RAISE, _ADJUST);
       } else {
         layer_off(_LOWER);
         update_tri_layer(_LOWER, _RAISE, _ADJUST);
-        if (!first_lower_pressed && (TIMER_DIFF_16(record->event.time, first_lower_pressed_time) < TAPPING_TERM)) {
-          first_lower_pressed = true;
-        } else if (first_lower_pressed && (TIMER_DIFF_16(record->event.time, first_lower_pressed_time) <= TAPPING_TERM * 2)) {
+        if (TIMER_DIFF_16(record->event.time, lower_pressed_time) < TAPPING_TERM && !rolling_keys_pressed_flag) {
           tap_code(KC_LNG2);
-          first_lower_pressed = false;
-        } else {
-          first_lower_pressed = false;
         }
       }
       return false;
       break;
     case RAISE:
       if (record->event.pressed) {
-        // 1回目のタップ
-        if (!first_raise_pressed) {
-          first_raise_pressed_time = record->event.time;
-        // 一度タップした後に TAPPING_TERM を超える時間が経過して再びタップした場合
-        } else if (first_raise_pressed && (TIMER_DIFF_16(record->event.time, first_raise_pressed_time) > TAPPING_TERM * 2)) {
-          first_raise_pressed_time = record->event.time;
-          first_raise_pressed = false;
-        }
+        raise_pressed_time = record->event.time;
         layer_on(_RAISE);
         update_tri_layer(_LOWER, _RAISE, _ADJUST);
       } else {
         layer_off(_RAISE);
         update_tri_layer(_LOWER, _RAISE, _ADJUST);
-        if (!first_raise_pressed && (TIMER_DIFF_16(record->event.time, first_raise_pressed_time) < TAPPING_TERM)) {
-          first_raise_pressed = true;
-        } else if (first_raise_pressed && (TIMER_DIFF_16(record->event.time, first_raise_pressed_time) <= TAPPING_TERM * 2)) {
+        if (TIMER_DIFF_16(record->event.time, raise_pressed_time) < TAPPING_TERM && !rolling_keys_pressed_flag) {
           tap_code(KC_LNG1);
-          first_raise_pressed = false;
-        } else {
-          first_raise_pressed = false;
         }
       }
       return false;
@@ -193,6 +202,46 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         layer_off(_ADJUST);
       }
       return false;
+      break;
+    case SFT_SPC:
+      if (record->event.pressed) {
+        sft_spc_pressed_time = record->event.time;
+        register_code(KC_LSFT);
+      } else {
+        unregister_code(KC_LSFT);
+        if (TIMER_DIFF_16(record->event.time, sft_spc_pressed_time) < TAPPING_TERM && !rolling_keys_pressed_flag) {
+          tap_code(KC_SPC);
+        }
+      }
+      return false;
+      break;
+    case ALT_TAB:
+      if (record->event.pressed) {
+        if (!is_alt_tab_active) {
+          is_alt_tab_active = true;
+          register_code(KC_LALT);
+        }
+        alt_tab_timer = timer_read();
+        register_code(KC_TAB);
+      } else {
+        unregister_code(KC_TAB);
+      }
+      break;
+    case KC_RIGHT: case KC_LEFT: case KC_DOWN: case KC_UP: case KC_TAB:
+      if (is_alt_tab_active) {
+        alt_tab_timer = timer_read();
+      }
+      break;
+    default:
+      if (record->event.pressed) {
+        rolling_keys_pressed_flag = true;
+      } else {
+        rolling_keys_pressed_flag = false;
+      }
+      if (is_alt_tab_active) {
+        unregister_code(KC_LALT);
+        is_alt_tab_active = false;
+      }
       break;
   }
   first_lower_pressed = false;
