@@ -164,6 +164,7 @@ static uint16_t lower_pressed_time = 0;
 static uint16_t raise_pressed_time = 0;
 static uint16_t sft_spc_pressed_time = 0;
 static _Bool    rolling_keys_pressed_flag = false;
+static _Bool    shift_keys_pressed_flag = false;
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
@@ -175,7 +176,17 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       } else {
         layer_off(_LOWER);
         update_tri_layer(_LOWER, _RAISE, _ADJUST);
-        if (TIMER_DIFF_16(record->event.time, lower_pressed_time) < TAPPING_TERM && !rolling_keys_pressed_flag) {
+        if (TIMER_DIFF_16(record->event.time, lower_pressed_time) < TAPPING_TERM) {
+          if (rolling_keys_pressed_flag) { // ABAB とタイプしたときの処理
+            lower_pressed_time = 0;
+            return false;
+          } else { // ABBA とタイプしたときの処理
+            if (TIMER_DIFF_16(record->event.time, rolling_key_released_time) < TAPPING_TERM / 2) {
+              lower_pressed_time = 0;
+              return false;
+            }
+          }
+          lower_pressed_time = 0;
           tap_code(KC_LNG2);
         }
       }
@@ -189,7 +200,17 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       } else {
         layer_off(_RAISE);
         update_tri_layer(_LOWER, _RAISE, _ADJUST);
-        if (TIMER_DIFF_16(record->event.time, raise_pressed_time) < TAPPING_TERM && !rolling_keys_pressed_flag) {
+        if (TIMER_DIFF_16(record->event.time, raise_pressed_time) < TAPPING_TERM) {
+          if (rolling_keys_pressed_flag) {
+            raise_pressed_time = 0;
+            return false;
+          } else {
+            if (TIMER_DIFF_16(record->event.time, rolling_key_released_time) < TAPPING_TERM / 2) {
+              raise_pressed_time = 0;
+              return false;
+            }
+          }
+          raise_pressed_time = 0;
           tap_code(KC_LNG1);
         }
       }
@@ -205,13 +226,33 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       break;
     case SFT_SPC:
       if (record->event.pressed) {
-        sft_spc_pressed_time = record->event.time;
-        register_code(KC_LSFT);
-      } else {
-        unregister_code(KC_LSFT);
-        if (TIMER_DIFF_16(record->event.time, sft_spc_pressed_time) < TAPPING_TERM && !rolling_keys_pressed_flag) {
-          tap_code(KC_SPC);
+        if (!shift_keys_pressed_flag) {
+          sft_spc_pressed_time = record->event.time;
+          register_code(KC_LSFT);
+        } else {
+          register_code(KC_SPC);
         }
+      } else {
+        if (!shift_keys_pressed_flag) {
+          unregister_code(KC_LSFT);
+          // 自分のキーを押すスピードに合わせて判定時間を調整している
+          if (TIMER_DIFF_16(record->event.time, sft_spc_pressed_time) < TAPPING_TERM) {
+            if (rolling_keys_pressed_flag) { // ABAB とタイプしたときの処理
+              sft_spc_pressed_time = 0;
+              return false;
+            } else { // ABBA とタイプしたときの処理
+              if (TIMER_DIFF_16(record->event.time, rolling_key_released_time) < TAPPING_TERM / 2) {
+                sft_spc_pressed_time = 0;
+                return false;
+              }
+            }
+            sft_spc_pressed_time = 0;
+            tap_code(KC_SPC);
+          }
+        } else {
+          unregister_code(KC_SPC);
+        }
+        sft_spc_pressed_time = 0;
       }
       return false;
       break;
@@ -228,14 +269,29 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       break;
     case KC_RIGHT: case KC_LEFT: case KC_DOWN: case KC_UP: case KC_TAB:
-      if (is_alt_tab_active) {
-        alt_tab_timer = timer_read();
-      }
-      break;
-    default:
       if (record->event.pressed) {
+        if (is_alt_tab_active) {
+          alt_tab_timer = timer_read();
+        }
+        rolling_key_released_time = 0;
         rolling_keys_pressed_flag = true;
       } else {
+        rolling_key_released_time = record->event.time;
+        rolling_keys_pressed_flag = false;
+      }
+      break;
+    case KC_LSFT: case KC_RSFT:
+      if (record->event.pressed) {
+        shift_keys_pressed_flag = true;
+      } else {
+        shift_keys_pressed_flag = false;
+      }
+    default:
+      if (record->event.pressed) {
+        rolling_key_released_time = 0;
+        rolling_keys_pressed_flag = true;
+      } else {
+        rolling_key_released_time = record->event.time;
         rolling_keys_pressed_flag = false;
       }
       if (is_alt_tab_active) {
@@ -244,8 +300,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       break;
   }
-  first_lower_pressed = false;
-  first_raise_pressed = false;
   return true;
 }
 
