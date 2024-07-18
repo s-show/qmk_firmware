@@ -20,24 +20,19 @@
  * From: https://beta.docs.qmk.fm/features/feature_macros#super-alt-tab
  * https://github.com/qmk/qmk_firmware/blob/master/keyboards/dz60/keymaps/_bonfire/not-in-use/super-alt-tab.c
  */
-bool is_alt_tab_active = false;    // ADD this near the begining of keymap.c
-uint16_t alt_tab_timer = 0;        // we will be using them soon.
+bool     is_alt_tab_active = false; // ADD this near the begining of keymap.c
+uint16_t alt_tab_timer     = 0;     // we will be using them soon.
 
 // Defines names for use in layer keycodes and the keymap
-enum layer_number {
-    _QWERTY = 0,
-    _LOWER,
-    _RAISE,
-    _ADJUST
-};
+enum layer_number { _QWERTY = 0, _LOWER, _RAISE, _ADJUST };
 
 enum custom_keycodes {
-  QWERTY = SAFE_RANGE,
-  LOWER,
-  RAISE,
-  ADJUST,
-  ALT_TAB,
-  SFT_SPC,
+    QWERTY = SAFE_RANGE,
+    LOWER,
+    RAISE,
+    ADJUST,
+    ALT_TAB,
+    SFT_SPC,
 };
 
 // alias other keycode
@@ -47,87 +42,85 @@ enum custom_keycodes {
 #define KC_ASPC LALT(KC_SPACE)
 #define KC_CSESC LCTL(LSFT(KC_ESC))
 
-
 // combo setting start
 enum combo_events {
-  SDF_ALT_SPACE,
-  /* JK_IME_ON,
-  DF_IME_OFF, */
-  DOTSLSH_ALT,
-  ZX_ALT,
-  MCOMM_WIN,
-  CV_WIN,
-  SD_CTRL,
-  KL_CTRL,
-  XC_SALT,
-  COMMDOT_SALT,
+    SDF_ALT_SPACE,
+    /* JK_IME_ON,
+    DF_IME_OFF, */
+    DOTSLSH_ALT,
+    ZX_ALT,
+    MCOMM_WIN,
+    CV_WIN,
+    SD_CTRL,
+    KL_CTRL,
+    XC_SALT,
+    COMMDOT_SALT,
 };
 
 const uint16_t PROGMEM sdf_combo[] = {KC_S, KC_D, KC_F, COMBO_END};
 /* const uint16_t PROGMEM jk_combo[] = {KC_J, KC_K, COMBO_END};
 const uint16_t PROGMEM df_combo[] = {KC_D, KC_F, COMBO_END}; */
 const uint16_t PROGMEM dotslsh_combo[] = {KC_DOT, KC_SLSH, COMBO_END};
-const uint16_t PROGMEM zx_combo[] = {KC_Z, KC_X, COMBO_END};
-const uint16_t PROGMEM mcomm_combo[] = {KC_M, KC_COMM, COMBO_END};
-const uint16_t PROGMEM cv_combo[] = {KC_C, KC_V, COMBO_END};
-const uint16_t PROGMEM sd_combo[] = {KC_S, KC_D, COMBO_END};
-const uint16_t PROGMEM kl_combo[] = {KC_K, KC_L, COMBO_END};
-const uint16_t PROGMEM xc_combo[] = {KC_X, KC_C, COMBO_END};
+const uint16_t PROGMEM zx_combo[]      = {KC_Z, KC_X, COMBO_END};
+const uint16_t PROGMEM mcomm_combo[]   = {KC_M, KC_COMM, COMBO_END};
+const uint16_t PROGMEM cv_combo[]      = {KC_C, KC_V, COMBO_END};
+const uint16_t PROGMEM sd_combo[]      = {KC_S, KC_D, COMBO_END};
+const uint16_t PROGMEM kl_combo[]      = {KC_K, KC_L, COMBO_END};
+const uint16_t PROGMEM xc_combo[]      = {KC_X, KC_C, COMBO_END};
 const uint16_t PROGMEM commdot_combo[] = {KC_COMM, KC_DOT, COMBO_END};
 
 combo_t key_combos[] = {
-  [SDF_ALT_SPACE] = COMBO_ACTION(sdf_combo),
-  /* [JK_IME_ON] = COMBO_ACTION(jk_combo),
-  [DF_IME_OFF] = COMBO_ACTION(df_combo), */
-  [DOTSLSH_ALT] = COMBO(dotslsh_combo, KC_LALT),
-  [ZX_ALT] = COMBO(zx_combo, KC_LALT),
-  [MCOMM_WIN] = COMBO(mcomm_combo, KC_LWIN),
-  [CV_WIN] = COMBO(cv_combo, KC_LWIN),
-  [SD_CTRL] = COMBO(sd_combo, KC_LCTL),
-  [KL_CTRL] = COMBO(kl_combo, KC_LCTL),
-  [XC_SALT] = COMBO_ACTION(xc_combo),
-  [COMMDOT_SALT] = COMBO_ACTION(commdot_combo),
+    [SDF_ALT_SPACE] = COMBO_ACTION(sdf_combo),
+    /* [JK_IME_ON] = COMBO_ACTION(jk_combo),
+    [DF_IME_OFF] = COMBO_ACTION(df_combo), */
+    [DOTSLSH_ALT]  = COMBO(dotslsh_combo, KC_LALT),
+    [ZX_ALT]       = COMBO(zx_combo, KC_LALT),
+    [MCOMM_WIN]    = COMBO(mcomm_combo, KC_LWIN),
+    [CV_WIN]       = COMBO(cv_combo, KC_LWIN),
+    [SD_CTRL]      = COMBO(sd_combo, KC_LCTL),
+    [KL_CTRL]      = COMBO(kl_combo, KC_LCTL),
+    [XC_SALT]      = COMBO_ACTION(xc_combo),
+    [COMMDOT_SALT] = COMBO_ACTION(commdot_combo),
 };
 
 void process_combo_event(uint16_t combo_index, bool pressed) {
-  switch(combo_index) {
-    case SDF_ALT_SPACE:
-      if (pressed) {
-        tap_code16(LALT(KC_SPACE));
-      }
-      break;
-    /* case JK_IME_ON:
-      if (pressed) {
-        tap_code16(KC_LNG1);
-      }
-      break;
-    case DF_IME_OFF:
-      if (pressed) {
-        tap_code16(KC_LNG2);
-      }
-      break; */
-    case XC_SALT:
-      if (pressed) {
-        register_code(KC_LSFT);
-        register_code(KC_LALT);
-      } else {
-        unregister_code(KC_LSFT);
-        unregister_code(KC_LALT);
-      }
-      break;
-    case COMMDOT_SALT:
-      if (pressed) {
-        register_code(KC_LSFT);
-        register_code(KC_LALT);
-      } else {
-        unregister_code(KC_LSFT);
-        unregister_code(KC_LALT);
-      }
-      break;
-  }
+    switch (combo_index) {
+        case SDF_ALT_SPACE:
+            if (pressed) {
+                tap_code16(LALT(KC_SPACE));
+            }
+            break;
+        /* case JK_IME_ON:
+          if (pressed) {
+            tap_code16(KC_LNG1);
+          }
+          break;
+        case DF_IME_OFF:
+          if (pressed) {
+            tap_code16(KC_LNG2);
+          }
+          break; */
+        case XC_SALT:
+            if (pressed) {
+                register_code(KC_LSFT);
+                register_code(KC_LALT);
+            } else {
+                unregister_code(KC_LSFT);
+                unregister_code(KC_LALT);
+            }
+            break;
+        case COMMDOT_SALT:
+            if (pressed) {
+                register_code(KC_LSFT);
+                register_code(KC_LALT);
+            } else {
+                unregister_code(KC_LSFT);
+                unregister_code(KC_LALT);
+            }
+            break;
+    }
 }
 // combo setting end
-
 
 /* keymap */
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = { \
@@ -160,157 +153,231 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = { \
       )
 };
 
-static uint16_t lower_pressed_time = 0;
-static uint16_t raise_pressed_time = 0;
-static uint16_t sft_spc_pressed_time = 0;
-static _Bool    rolling_keys_pressed_flag = false;
-static _Bool    shift_keys_pressed_flag = false;
+static uint16_t lower_pressed_time               = 0;
+static uint16_t raise_pressed_time               = 0;
+static uint16_t sft_spc_pressed_time             = 0;
+static uint16_t any_key_released_time            = 0;
+static _Bool    shift_keys_pressed_flag          = false;
+static _Bool    sft_spc_pressed_flag             = false;
+static _Bool    sft_spc_to_any_keys_pressed_flag = false;
+static _Bool    any_keys_pressed_flag            = false;
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  switch (keycode) {
-    case LOWER:
-      if (record->event.pressed) {
-        lower_pressed_time = record->event.time;
-        layer_on(_LOWER);
-        update_tri_layer(_LOWER, _RAISE, _ADJUST);
-      } else {
-        layer_off(_LOWER);
-        update_tri_layer(_LOWER, _RAISE, _ADJUST);
-        if (TIMER_DIFF_16(record->event.time, lower_pressed_time) < TAPPING_TERM) {
-          if (rolling_keys_pressed_flag) { // ABAB とタイプしたときの処理
-            lower_pressed_time = 0;
+    switch (keycode) {
+        case LOWER:
+            if (record->event.pressed) {
+                lower_pressed_time = record->event.time;
+                layer_on(_LOWER);
+                update_tri_layer(_LOWER, _RAISE, _ADJUST);
+            } else {
+                layer_off(_LOWER);
+                update_tri_layer(_LOWER, _RAISE, _ADJUST);
+                if (TIMER_DIFF_16(record->event.time, lower_pressed_time) < TAPPING_TERM) {
+                    if (any_keys_pressed_flag) { // ABAB とタイプしたときの処理
+                        lower_pressed_time = 0;
+                        return false;
+                    } else { // ABBA とタイプしたときの処理
+                        if (TIMER_DIFF_16(record->event.time, any_key_released_time) < TAPPING_TERM / 2) {
+                            lower_pressed_time = 0;
+                            return false;
+                        }
+                    }
+                    lower_pressed_time = 0;
+                    tap_code(KC_LNG2);
+                }
+            }
             return false;
-          } else { // ABBA とタイプしたときの処理
-            if (TIMER_DIFF_16(record->event.time, rolling_key_released_time) < TAPPING_TERM / 2) {
-              lower_pressed_time = 0;
-              return false;
+            break;
+        case RAISE:
+            if (record->event.pressed) {
+                raise_pressed_time = record->event.time;
+                layer_on(_RAISE);
+                update_tri_layer(_LOWER, _RAISE, _ADJUST);
+            } else {
+                layer_off(_RAISE);
+                update_tri_layer(_LOWER, _RAISE, _ADJUST);
+                if (TIMER_DIFF_16(record->event.time, raise_pressed_time) < TAPPING_TERM) {
+                    if (any_keys_pressed_flag) {
+                        raise_pressed_time = 0;
+                        return false;
+                    } else {
+                        if (TIMER_DIFF_16(record->event.time, any_key_released_time) < TAPPING_TERM / 2) {
+                            raise_pressed_time = 0;
+                            return false;
+                        }
+                    }
+                    raise_pressed_time = 0;
+                    tap_code(KC_LNG1);
+                }
             }
-          }
-          lower_pressed_time = 0;
-          tap_code(KC_LNG2);
-        }
-      }
-      return false;
-      break;
-    case RAISE:
-      if (record->event.pressed) {
-        raise_pressed_time = record->event.time;
-        layer_on(_RAISE);
-        update_tri_layer(_LOWER, _RAISE, _ADJUST);
-      } else {
-        layer_off(_RAISE);
-        update_tri_layer(_LOWER, _RAISE, _ADJUST);
-        if (TIMER_DIFF_16(record->event.time, raise_pressed_time) < TAPPING_TERM) {
-          if (rolling_keys_pressed_flag) {
-            raise_pressed_time = 0;
             return false;
-          } else {
-            if (TIMER_DIFF_16(record->event.time, rolling_key_released_time) < TAPPING_TERM / 2) {
-              raise_pressed_time = 0;
-              return false;
+            break;
+        case ADJUST:
+            if (record->event.pressed) {
+                layer_on(_ADJUST);
+            } else {
+                layer_off(_ADJUST);
             }
-          }
-          raise_pressed_time = 0;
-          tap_code(KC_LNG1);
-        }
-      }
-      return false;
-      break;
-    case ADJUST:
-      if (record->event.pressed) {
-        layer_on(_ADJUST);
-      } else {
-        layer_off(_ADJUST);
-      }
-      return false;
-      break;
-    case SFT_SPC:
-      if (record->event.pressed) {
-        if (!shift_keys_pressed_flag) {
-          sft_spc_pressed_time = record->event.time;
-          register_code(KC_LSFT);
-        } else {
-          register_code(KC_SPC);
-        }
-      } else {
-        if (!shift_keys_pressed_flag) {
-          unregister_code(KC_LSFT);
-          // 自分のキーを押すスピードに合わせて判定時間を調整している
-          if (TIMER_DIFF_16(record->event.time, sft_spc_pressed_time) < TAPPING_TERM) {
-            if (rolling_keys_pressed_flag) { // ABAB とタイプしたときの処理
-              sft_spc_pressed_time = 0;
-              return false;
-            } else { // ABBA とタイプしたときの処理
-              if (TIMER_DIFF_16(record->event.time, rolling_key_released_time) < TAPPING_TERM / 2) {
-                sft_spc_pressed_time = 0;
-                return false;
-              }
+            return false;
+            break;
+        case SFT_SPC:
+            if (record->event.pressed) {
+                sft_spc_pressed_flag = true;
+                sft_spc_pressed_time = record->event.time;
+                if (shift_keys_pressed_flag) {
+                    register_code(KC_SPC);
+                } else {
+                    register_code(KC_LSFT);
+                }
+            } else {
+                sft_spc_pressed_flag = false;
+                if (shift_keys_pressed_flag) {
+                    unregister_code(KC_SPC);
+                } else {
+                    unregister_code(KC_LSFT);
+                    if (sft_spc_to_any_keys_pressed_flag) {
+                        sft_spc_to_any_keys_pressed_flag = false;
+                    } else {
+                        if (TIMER_DIFF_16(record->event.time, sft_spc_pressed_time) < TAPPING_TERM) {
+                            tap_code(KC_SPC);
+                        }
+                    }
+                }
             }
-            sft_spc_pressed_time = 0;
-            tap_code(KC_SPC);
-          }
-        } else {
-          unregister_code(KC_SPC);
-        }
-        sft_spc_pressed_time = 0;
-      }
-      return false;
-      break;
-    case ALT_TAB:
-      if (record->event.pressed) {
-        if (!is_alt_tab_active) {
-          is_alt_tab_active = true;
-          register_code(KC_LALT);
-        }
-        alt_tab_timer = timer_read();
-        register_code(KC_TAB);
-      } else {
-        unregister_code(KC_TAB);
-      }
-      break;
-    case KC_RIGHT: case KC_LEFT: case KC_DOWN: case KC_UP: case KC_TAB:
-      if (record->event.pressed) {
-        if (is_alt_tab_active) {
-          alt_tab_timer = timer_read();
-        }
-        rolling_key_released_time = 0;
-        rolling_keys_pressed_flag = true;
-      } else {
-        rolling_key_released_time = record->event.time;
-        rolling_keys_pressed_flag = false;
-      }
-      break;
-    case KC_LSFT: case KC_RSFT:
-      if (record->event.pressed) {
-        shift_keys_pressed_flag = true;
-      } else {
-        shift_keys_pressed_flag = false;
-      }
-    default:
-      if (record->event.pressed) {
-        rolling_key_released_time = 0;
-        rolling_keys_pressed_flag = true;
-      } else {
-        rolling_key_released_time = record->event.time;
-        rolling_keys_pressed_flag = false;
-      }
-      if (is_alt_tab_active) {
-        unregister_code(KC_LALT);
-        is_alt_tab_active = false;
-      }
-      break;
-  }
-  return true;
+            return false;
+            break;
+        case ALT_TAB:
+            if (record->event.pressed) {
+                if (!is_alt_tab_active) {
+                    is_alt_tab_active = true;
+                    register_code(KC_LALT);
+                }
+                alt_tab_timer = timer_read();
+                register_code(KC_TAB);
+            } else {
+                unregister_code(KC_TAB);
+            }
+            break;
+        case KC_RIGHT:
+        case KC_LEFT:
+        case KC_DOWN:
+        case KC_UP:
+        case KC_TAB:
+            if (record->event.pressed) {
+                if (is_alt_tab_active) {
+                    alt_tab_timer = timer_read();
+                }
+            }
+            any_keys_pressed_flag = false;
+            break;
+        case KC_J:
+        case KC_S:
+            if (record->event.pressed) {
+                if (is_alt_tab_active) {
+                    alt_tab_timer = timer_read();
+                    register_code(KC_DOWN);
+                    return false;
+                    break;
+                }
+            } else {
+                if (is_alt_tab_active) {
+                    unregister_code(KC_DOWN);
+                    return false;
+                    break;
+                }
+            }
+            return true;
+            break;
+        case KC_K:
+        case KC_W:
+            if (record->event.pressed) {
+                if (is_alt_tab_active) {
+                    alt_tab_timer = timer_read();
+                    register_code(KC_UP);
+                    return false;
+                    break;
+                }
+            } else {
+                if (is_alt_tab_active) {
+                    unregister_code(KC_UP);
+                    return false;
+                    break;
+                }
+            }
+            return true;
+            break;
+        case KC_H:
+        case KC_A:
+            if (record->event.pressed) {
+                if (is_alt_tab_active) {
+                    alt_tab_timer = timer_read();
+                    register_code(KC_LEFT);
+                    return false;
+                    break;
+                }
+            } else {
+                if (is_alt_tab_active) {
+                    unregister_code(KC_LEFT);
+                    return false;
+                    break;
+                }
+            }
+            return true;
+            break;
+        case KC_L:
+        case KC_D:
+            if (record->event.pressed) {
+                if (is_alt_tab_active) {
+                    alt_tab_timer = timer_read();
+                    register_code(KC_RIGHT);
+                    return false;
+                    break;
+                }
+            } else {
+                if (is_alt_tab_active) {
+                    unregister_code(KC_RIGHT);
+                    return false;
+                    break;
+                }
+            }
+            return true;
+            break;
+        case KC_LSFT:
+        case KC_RSFT:
+            if (record->event.pressed) {
+                shift_keys_pressed_flag = true;
+            } else {
+                shift_keys_pressed_flag = false;
+            }
+        default:
+            if (record->event.pressed) {
+                any_keys_pressed_flag = true;
+                if (sft_spc_pressed_flag) {
+                    sft_spc_to_any_keys_pressed_flag = true;
+                } else {
+                    sft_spc_to_any_keys_pressed_flag = false;
+                }
+            } else {
+                any_keys_pressed_flag = false;
+                any_key_released_time = record->event.time;
+            }
+            if (is_alt_tab_active) {
+                unregister_code(KC_LALT);
+                is_alt_tab_active = false;
+            }
+            break;
+    }
+    return true;
 }
 
 layer_state_t layer_state_set_user(layer_state_t state) {
-  return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
+    return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
 };
 
 // The very important timer.
 void matrix_scan_user(void) {
-  if (is_alt_tab_active && timer_elapsed(alt_tab_timer) > 1000) {
-    unregister_code(KC_LALT);
-    is_alt_tab_active = false;
-  }
+    if (is_alt_tab_active && timer_elapsed(alt_tab_timer) > 1000) {
+        unregister_code(KC_LALT);
+        is_alt_tab_active = false;
+    }
 }
