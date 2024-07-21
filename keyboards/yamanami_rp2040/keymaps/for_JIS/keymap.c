@@ -170,21 +170,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_LSFT, KC_Z,   KC_X,    KC_C,    KC_V,  KC_B,    KC_N,    KC_M,  KC_COMM, KC_DOT,  KC_SLSH, KC_ENT, \
         ALT_TAB, KC_ESC, KC_LALT, KC_LGUI, LOWER, SFT_SPC, KC_BSPC, RAISE, KC_RGUI, KC_RALT, KC_RCTL, ALT_TAB \
     ),
-
     [_LOWER] = LAYOUT(
         JP_ZKHK, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,   KC_7,    KC_8,    KC_9,    KC_0,    JP_BSLS, \
         _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,  KC_MINS, JP_EQL,  JP_LBRC, JP_RBRC, _______, \
         _______, KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12, KC_APP,  JP_LPRN, JP_RPRN, _______, _______, \
         _______, _______, _______, _______, _______, _______, KC_DEL, _______, _______, _______, _______, _______ \
     ),
-
     [_RAISE] = LAYOUT(
         KC_AGRV, KC_NO,      KC_PGUP,    KC_ESC,     KC_NO,     KC_TAB, KC_NO,   KC_NO,   KC_INS,  KC_NO,   KC_PSCR, KC_NO, \
         _______, KC_HOME,    KC_PGDN,    KC_END,     KC_NO,     KC_NO,  KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_NO,   KC_NO, \
         _______, A(KC_HOME), C(KC_PGDN), C(KC_PGUP), C(KC_END), KC_NO,  KC_NO,   KC_NO,   _______, _______, _______, _______, \
         _______, _______,    _______,    _______,    _______,   KC_ENT, _______, _______, _______, _______, _______, _______ \
     ),
-
     [_ADJUST] = LAYOUT(
         QK_BOOT, JP_EXLM,  JP_AT,   JP_HASH, JP_DLR,   JP_PERC,   JP_CIRC,    JP_AMPR,    JP_ASTR,  JP_LPRN,    JP_RPRN,  KC_NO, \
         DB_TOGG, KC_ASPC,  KC_NO,   KC_NO,   A(KC_F4), G(KC_TAB), A(KC_LEFT), A(KC_DOWN), A(KC_UP), A(KC_RGHT), KC_APSCR, KC_NO, \
@@ -193,61 +190,55 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 };
 
-static uint16_t lower_pressed_time               = 0;
-static uint16_t raise_pressed_time               = 0;
-static uint16_t sft_spc_pressed_time             = 0;
-static uint16_t any_key_released_time            = 0;
-static _Bool    shift_keys_pressed_flag          = false;
-static _Bool    sft_spc_pressed_flag             = false;
-static _Bool    sft_spc_to_any_keys_pressed_flag = false;
-static _Bool    any_keys_pressed_flag            = false;
+static uint16_t lower_pressed_time    = 0;
+static uint16_t raise_pressed_time    = 0;
+static uint16_t sft_spc_pressed_time  = 0;
+static _Bool shift_keys_pressed_flag          = false;
+static _Bool sft_spc_pressed_flag             = false;
+static _Bool sft_spc_to_any_keys_pressed_flag = false;
+static _Bool lower_pressed_flag               = false;
+static _Bool lower_to_any_keys_pressed_flag   = false;
+static _Bool raise_pressed_flag               = false;
+static _Bool raise_to_any_keys_pressed_flag   = false;
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case LOWER:
             if (record->event.pressed) {
+                lower_pressed_flag = true;
                 lower_pressed_time = record->event.time;
                 layer_on(_LOWER);
                 update_tri_layer(_LOWER, _RAISE, _ADJUST);
             } else {
+                lower_pressed_flag = false;
                 layer_off(_LOWER);
                 update_tri_layer(_LOWER, _RAISE, _ADJUST);
-                if (TIMER_DIFF_16(record->event.time, lower_pressed_time) < TAPPING_TERM) {
-                    if (any_keys_pressed_flag) { // ABAB とタイプしたときの処理
-                        lower_pressed_time = 0;
-                        return false;
-                    } else { // ABBA とタイプしたときの処理
-                        if (TIMER_DIFF_16(record->event.time, any_key_released_time) < TAPPING_TERM / 2) {
-                            lower_pressed_time = 0;
-                            return false;
-                        }
+                if (lower_to_any_keys_pressed_flag) {
+                    lower_to_any_keys_pressed_flag = false;
+                } else {
+                    if (TIMER_DIFF_16(record->event.time, lower_pressed_time) < TAPPING_TERM) {
+                        tap_code(KC_LNG2);
                     }
-                    lower_pressed_time = 0;
-                    tap_code(KC_LNG2);
                 }
             }
             return false;
             break;
         case RAISE:
             if (record->event.pressed) {
+                raise_pressed_flag = true;
                 raise_pressed_time = record->event.time;
                 layer_on(_RAISE);
                 update_tri_layer(_LOWER, _RAISE, _ADJUST);
             } else {
+                raise_pressed_flag = false;
                 layer_off(_RAISE);
                 update_tri_layer(_LOWER, _RAISE, _ADJUST);
-                if (TIMER_DIFF_16(record->event.time, raise_pressed_time) < TAPPING_TERM) {
-                    if (any_keys_pressed_flag) {
-                        raise_pressed_time = 0;
-                        return false;
-                    } else {
-                        if (TIMER_DIFF_16(record->event.time, any_key_released_time) < TAPPING_TERM / 2) {
-                            raise_pressed_time = 0;
-                            return false;
-                        }
+                if (raise_to_any_keys_pressed_flag) {
+                    raise_to_any_keys_pressed_flag = false;
+                } else {
+                    if (TIMER_DIFF_16(record->event.time, raise_pressed_time) < TAPPING_TERM) {
+                        tap_code(KC_LNG1);
                     }
-                    raise_pressed_time = 0;
-                    tap_code(KC_LNG1);
                 }
             }
             return false;
@@ -307,8 +298,22 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 if (is_alt_tab_active) {
                     alt_tab_timer = timer_read();
                 }
+                if (sft_spc_pressed_flag) {
+                    sft_spc_to_any_keys_pressed_flag = true;
+                } else {
+                    sft_spc_to_any_keys_pressed_flag = false;
+                }
+                if (lower_pressed_flag) {
+                    lower_to_any_keys_pressed_flag = true;
+                } else {
+                    lower_to_any_keys_pressed_flag = false;
+                }
+                if (raise_pressed_flag) {
+                    raise_to_any_keys_pressed_flag = true;
+                } else {
+                    raise_to_any_keys_pressed_flag = false;
+                }
             }
-            any_keys_pressed_flag = false;
             break;
         case KC_J:
         case KC_S:
@@ -318,6 +323,21 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     register_code(KC_DOWN);
                     return false;
                     break;
+                }
+                if (sft_spc_pressed_flag) {
+                    sft_spc_to_any_keys_pressed_flag = true;
+                } else {
+                    sft_spc_to_any_keys_pressed_flag = false;
+                }
+                if (lower_pressed_flag) {
+                    lower_to_any_keys_pressed_flag = true;
+                } else {
+                    lower_to_any_keys_pressed_flag = false;
+                }
+                if (raise_pressed_flag) {
+                    raise_to_any_keys_pressed_flag = true;
+                } else {
+                    raise_to_any_keys_pressed_flag = false;
                 }
             } else {
                 if (is_alt_tab_active) {
@@ -337,6 +357,21 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     return false;
                     break;
                 }
+                if (sft_spc_pressed_flag) {
+                    sft_spc_to_any_keys_pressed_flag = true;
+                } else {
+                    sft_spc_to_any_keys_pressed_flag = false;
+                }
+                if (lower_pressed_flag) {
+                    lower_to_any_keys_pressed_flag = true;
+                } else {
+                    lower_to_any_keys_pressed_flag = false;
+                }
+                if (raise_pressed_flag) {
+                    raise_to_any_keys_pressed_flag = true;
+                } else {
+                    raise_to_any_keys_pressed_flag = false;
+                }
             } else {
                 if (is_alt_tab_active) {
                     unregister_code(KC_UP);
@@ -354,6 +389,21 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     register_code(KC_LEFT);
                     return false;
                     break;
+                }
+                if (sft_spc_pressed_flag) {
+                    sft_spc_to_any_keys_pressed_flag = true;
+                } else {
+                    sft_spc_to_any_keys_pressed_flag = false;
+                }
+                if (lower_pressed_flag) {
+                    lower_to_any_keys_pressed_flag = true;
+                } else {
+                    lower_to_any_keys_pressed_flag = false;
+                }
+                if (raise_pressed_flag) {
+                    raise_to_any_keys_pressed_flag = true;
+                } else {
+                    raise_to_any_keys_pressed_flag = false;
                 }
             } else {
                 if (is_alt_tab_active) {
@@ -373,6 +423,21 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     return false;
                     break;
                 }
+                if (sft_spc_pressed_flag) {
+                    sft_spc_to_any_keys_pressed_flag = true;
+                } else {
+                    sft_spc_to_any_keys_pressed_flag = false;
+                }
+                if (lower_pressed_flag) {
+                    lower_to_any_keys_pressed_flag = true;
+                } else {
+                    lower_to_any_keys_pressed_flag = false;
+                }
+                if (raise_pressed_flag) {
+                    raise_to_any_keys_pressed_flag = true;
+                } else {
+                    raise_to_any_keys_pressed_flag = false;
+                }
             } else {
                 if (is_alt_tab_active) {
                     unregister_code(KC_RIGHT);
@@ -391,15 +456,22 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
         default:
             if (record->event.pressed) {
-                any_keys_pressed_flag = true;
                 if (sft_spc_pressed_flag) {
                     sft_spc_to_any_keys_pressed_flag = true;
                 } else {
                     sft_spc_to_any_keys_pressed_flag = false;
                 }
+                if (lower_pressed_flag) {
+                    lower_to_any_keys_pressed_flag = true;
+                } else {
+                    lower_to_any_keys_pressed_flag = false;
+                }
+                if (raise_pressed_flag) {
+                    raise_to_any_keys_pressed_flag = true;
+                } else {
+                    raise_to_any_keys_pressed_flag = false;
+                }
             } else {
-                any_keys_pressed_flag = false;
-                any_key_released_time = record->event.time;
             }
             if (is_alt_tab_active) {
                 unregister_code(KC_LALT);
