@@ -270,7 +270,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                         sft_spc_to_any_keys_pressed_flag = false;
                     } else {
                         if (TIMER_DIFF_16(record->event.time, sft_spc_pressed_time) < TAPPING_TERM) {
-                            tap_code(KC_SPC);
+                            if (is_alt_tab_active) {
+                                unregister_code(KC_LALT);
+                                tap_code(KC_SPC);
+                            } else {
+                                tap_code(KC_SPC);
+                            }
                         }
                     }
                 }
