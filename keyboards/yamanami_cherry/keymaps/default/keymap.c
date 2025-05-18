@@ -313,7 +313,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = { \
     [_ADJUST_US_US] =  LAYOUT( \
         QK_BOOT, KC_EXLM,  KC_AT,   KC_HASH, KC_DLR,        KC_PERC,   KC_CIRC,    KC_AMPR,    KC_ASTR,  KC_LPRN,    KC_RPRN,  KC_NO, \
         DB_TOGG, KC_ASPC,  KC_NO,   KC_NO,   TD(TD_ALT_F4), G(KC_TAB), A(KC_LEFT), A(KC_DOWN), A(KC_UP), A(KC_RGHT), KC_APSCR, KC_NO,\
-        _______, KC_NO,    KC_NO,   KC_NO,   KC_NO,         KC_NO,     KC_NO,      KC_NO,      _______,  _______,    _______,  _______, \
+        DB_TOGG, KC_NO,    PDF(1),  PDF(2), PDF(3),         KC_NO,     KC_NO,      KC_NO,      _______,  _______,    _______,  _______, \
         KC_CAD,  KC_CSESC, _______, _______, _______,       _______,   _______,    _______,    _______,  _______,    _______,  QK_BOOT \
         ),
 
@@ -321,7 +321,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = { \
     [_ADJUST_US_JIS] =  LAYOUT( \
         QK_BOOT, JP_EXLM,  JP_AT,   JP_HASH, JP_DLR,        JP_PERC,   JP_CIRC,    JP_AMPR,    JP_ASTR,  JP_LPRN,    JP_RPRN,  KC_NO, \
         DB_TOGG, KC_ASPC,  KC_NO,   KC_NO,   TD(TD_ALT_F4), G(KC_TAB), A(KC_LEFT), A(KC_DOWN), A(KC_UP), A(KC_RGHT), KC_APSCR, KC_NO, \
-        _______, KC_NO,    KC_NO,   KC_NO,   KC_NO,         KC_NO,     KC_NO,      KC_NO,      _______,  _______,    _______,  _______, \
+        DB_TOGG, PDF(0),   KC_NO,   PDF(2),  PDF(3),        KC_NO,     KC_NO,      KC_NO,      _______,  _______,    _______,  _______, \
         KC_CAD,  KC_CSESC, _______, _______, _______,       _______,   _______,    _______,    _______,  _______,    _______,  QK_BOOT \
         ),
 
@@ -329,7 +329,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = { \
     [_ADJUST_JIS_US] =  LAYOUT( \
         QK_BOOT, KC_EXLM,  KC_DQUO, KC_HASH, KC_DLR,        KC_PERC,   KC_AMPR,    KC_QUOT,    KC_LPRN,  KC_RPRN,    KC_EQL,   KC_TILD, \
         DB_TOGG, KC_ASPC,  KC_NO,   KC_NO,   TD(TD_ALT_F4), G(KC_TAB), A(KC_LEFT), A(KC_DOWN), A(KC_UP), A(KC_RGHT), KC_APSCR, KC_NO,\
-        _______, KC_NO,    KC_NO,   KC_NO,   KC_NO,         KC_NO,     KC_NO,      KC_NO,      _______,  _______,    _______,  _______, \
+        DB_TOGG, PDF(0),   PDF(1),  KC_NO,   PDF(3),        KC_NO,     KC_NO,      KC_NO,      _______,  _______,    _______,  _______, \
         KC_CAD,  KC_CSESC, _______, _______, _______,       _______,   _______,    _______,    _______,  _______,    _______,  QK_BOOT \
         ),
 
@@ -337,7 +337,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = { \
     [_ADJUST_JIS_JIS] =  LAYOUT( \
         QK_BOOT, JP_EXLM,  JP_DQUO, JP_HASH, JP_DLR,        JP_PERC,   JP_AMPR,    JP_QUOT,    JP_LPRN,  JP_RPRN,    JP_EQL,   JP_TILD, \
         DB_TOGG, KC_ASPC,  KC_NO,   KC_NO,   TD(TD_ALT_F4), G(KC_TAB), A(KC_LEFT), A(KC_DOWN), A(KC_UP), A(KC_RGHT), KC_APSCR, KC_NO, \
-        _______, KC_NO,    KC_NO,   KC_NO,   KC_NO,         KC_NO,     KC_NO,      KC_NO,      _______,  _______,    _______,  _______, \
+        DB_TOGG , PDF(0),   PDF(1),  PDF(2),  KC_NO,         KC_NO,     KC_NO,      KC_NO,      _______,  _______,    _______,  _______, \
         KC_CAD,  KC_CSESC, _______, _______, _______,       _______,   _______,    _______,    _______,  _______,    _______,  QK_BOOT \
         )
 };
@@ -507,64 +507,47 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 
 /* Layer setting */
-int isCurrentLayer = 0;
-int isDefaultLayer = 0;
+enum layer_number isCurrentLayer;
+// int isDefaultLayer = 0;
+enum layer_number isDefaultLayer;
 layer_state_t layer_state_set_user(layer_state_t state) {
     state = update_tri_layer_state(state, _LOWER_US_US, _RAISE_US_US, _ADJUST_US_US);
     state = update_tri_layer_state(state, _LOWER_US_JIS, _RAISE_US_JIS, _ADJUST_US_JIS);
     state = update_tri_layer_state(state, _LOWER_JIS_US, _RAISE_JIS_US, _ADJUST_JIS_US);
     state = update_tri_layer_state(state, _LOWER_JIS_JIS, _RAISE_JIS_JIS, _ADJUST_JIS_JIS);
-    switch (get_highest_layer(state)) {
-        case _QWERTY_US_JIS:
-            isCurrentLayer = 1;
-            break;
-        case _QWERTY_JIS_US:
-            isCurrentLayer = 2;
-            break;
-        case _QWERTY_JIS_JIS:
-            isCurrentLayer = 3;
-            break;
-        case _LOWER_US_US:
-            isCurrentLayer = 10;
-            break;
-        case _LOWER_US_JIS:
-            isCurrentLayer = 11;
-            break;
-        case _RAISE_US_US:
-            isCurrentLayer = 20;
-            break;
-        case _RAISE_US_JIS:
-            isCurrentLayer = 21;
-            break;
-        case _ADJUST_US_US:
-            isCurrentLayer = 30;
-            break;
-        case _ADJUST_US_JIS:
-            isCurrentLayer = 31;
-            break;
-        default:
-            if (isDefaultLayer == 0) {
-                isCurrentLayer = 0;
-            } else {
-                isCurrentLayer = 1;
-            }
-            break;
+    // uprintf("highest layer is: %u\n", get_highest_layer(state));
+    if (get_highest_layer(state) == 0) {
+        if (isDefaultLayer == 0) {
+            isCurrentLayer = _QWERTY_US_US;
+        } else if (isDefaultLayer == 1) {
+            isCurrentLayer = _QWERTY_US_JIS;
+        } else if (isDefaultLayer == 2) {
+            isCurrentLayer = _QWERTY_JIS_US;
+        } else {
+            isCurrentLayer = _QWERTY_JIS_JIS;
+        }
+    } else {
+        isCurrentLayer = get_highest_layer(state);
     }
+    return state;
+}
+
+layer_state_t default_layer_state_set_kb(layer_state_t state) {
+    // uprintf("default layer is: %u\n", get_highest_layer(state));
+    isDefaultLayer = get_highest_layer(state);
     return state;
 }
 
 /* DIP Switch Setting */
 bool dip_switch_update_mask_user(uint32_t state) {
-    #ifdef CONSOLE_ENABLE
-        uprintf("switch state: %lu\n", state);
-    #endif
-
+    // #ifdef CONSOLE_ENABLE
+    //     uprintf("switch state: %lu\n", state);
+    // #endif
     switch (state) {
         // keycap is US, OS layout is US.
         case 0:
             set_single_persistent_default_layer(0);
-            isDefaultLayer = 0;
-            isCurrentLayer = 0;
+            isDefaultLayer = _QWERTY_US_US;
             keymap_config.swap_lalt_lgui = false;
             keymap_config.swap_control_capslock = false;
             key_override_off();
@@ -572,8 +555,7 @@ bool dip_switch_update_mask_user(uint32_t state) {
         // keycap is US, OS layout is JIS.
         case 1:
             set_single_persistent_default_layer(1);
-            isDefaultLayer = 1;
-            isCurrentLayer = 1;
+            isDefaultLayer = _QWERTY_US_JIS;
             keymap_config.swap_lalt_lgui = false;
             keymap_config.swap_control_capslock = false;
             key_override_on();
@@ -581,8 +563,7 @@ bool dip_switch_update_mask_user(uint32_t state) {
         // keycap is JIS, OS layout is US.
         case 2:
             set_single_persistent_default_layer(2);
-            isDefaultLayer = 2;
-            isCurrentLayer = 2;
+            isDefaultLayer = _QWERTY_JIS_US;
             keymap_config.swap_lalt_lgui = false;
             keymap_config.swap_control_capslock = false;
             key_override_on();
@@ -590,8 +571,7 @@ bool dip_switch_update_mask_user(uint32_t state) {
         // keycap is JIS, OS layout is JIS.
         case 3:
             set_single_persistent_default_layer(3);
-            isDefaultLayer = 3;
-            isCurrentLayer = 3;
+            isDefaultLayer = _QWERTY_JIS_JIS;
             keymap_config.swap_lalt_lgui = false;
             keymap_config.swap_control_capslock = false;
             key_override_on();
@@ -599,8 +579,7 @@ bool dip_switch_update_mask_user(uint32_t state) {
         // keycap is US, OS layout is US.
         case 4:
             set_single_persistent_default_layer(0);
-            isDefaultLayer = 0;
-            isCurrentLayer = 0;
+            isDefaultLayer = _QWERTY_US_US;
             keymap_config.swap_lalt_lgui = true;
             keymap_config.swap_control_capslock = false;
             key_override_off();
@@ -608,8 +587,7 @@ bool dip_switch_update_mask_user(uint32_t state) {
         // keycap is US, OS layout is JIS.
         case 5:
             set_single_persistent_default_layer(1);
-            isDefaultLayer = 1;
-            isCurrentLayer = 1;
+            isDefaultLayer = _QWERTY_US_JIS;
             keymap_config.swap_lalt_lgui = true;
             keymap_config.swap_control_capslock = false;
             key_override_on();
@@ -617,24 +595,21 @@ bool dip_switch_update_mask_user(uint32_t state) {
         // keycap is JIS, OS layout is US.
         case 6:
             set_single_persistent_default_layer(2);
-            isDefaultLayer = 2;
-            isCurrentLayer = 2;
+            isDefaultLayer = _QWERTY_JIS_US;
             keymap_config.swap_lalt_lgui = true;
             keymap_config.swap_control_capslock = false;
             break;
         // keycap is JIS, OS layout is JIS.
         case 7:
             set_single_persistent_default_layer(3);
-            isDefaultLayer = 3;
-            isCurrentLayer = 3;
+            isDefaultLayer = _QWERTY_JIS_JIS;
             keymap_config.swap_lalt_lgui = true;
             keymap_config.swap_control_capslock = false;
             break;
         // keycap is US, OS layout is US.
         case 8:
             set_single_persistent_default_layer(0);
-            isDefaultLayer = 0;
-            isCurrentLayer = 0;
+            isDefaultLayer = _QWERTY_US_US;
             keymap_config.swap_lalt_lgui = false;
             keymap_config.swap_control_capslock = true;
             key_override_off();
@@ -642,8 +617,7 @@ bool dip_switch_update_mask_user(uint32_t state) {
         // keycap is US, OS layout is JIS.
         case 9:
             set_single_persistent_default_layer(1);
-            isDefaultLayer = 1;
-            isCurrentLayer = 1;
+            isDefaultLayer = _QWERTY_US_JIS;
             keymap_config.swap_lalt_lgui = false;
             keymap_config.swap_control_capslock = true;
             key_override_on();
@@ -651,24 +625,21 @@ bool dip_switch_update_mask_user(uint32_t state) {
         // keycap is JIS, OS layout is US.
         case 10:
             set_single_persistent_default_layer(2);
-            isDefaultLayer = 2;
-            isCurrentLayer = 2;
+            isDefaultLayer = _QWERTY_JIS_US;
             keymap_config.swap_lalt_lgui = false;
             keymap_config.swap_control_capslock = true;
             break;
         // keycap is JIS, OS layout is JIS.
         case 11:
             set_single_persistent_default_layer(3);
-            isDefaultLayer = 3;
-            isCurrentLayer = 3;
+            isDefaultLayer = _QWERTY_JIS_JIS;
             keymap_config.swap_lalt_lgui = false;
             keymap_config.swap_control_capslock = true;
             break;
         // keycap is US, OS layout is US.
         case 12:
             set_single_persistent_default_layer(0);
-            isDefaultLayer = 0;
-            isCurrentLayer = 0;
+            isDefaultLayer = _QWERTY_US_US;
             keymap_config.swap_lalt_lgui = true;
             keymap_config.swap_control_capslock = true;
             key_override_off();
@@ -676,8 +647,7 @@ bool dip_switch_update_mask_user(uint32_t state) {
         // keycap is US, OS layout is JIS.
         case 13:
             set_single_persistent_default_layer(1);
-            isDefaultLayer = 1;
-            isCurrentLayer = 1;
+            isDefaultLayer = _QWERTY_US_JIS;
             keymap_config.swap_lalt_lgui = true;
             keymap_config.swap_control_capslock = true;
             key_override_on();
@@ -685,20 +655,19 @@ bool dip_switch_update_mask_user(uint32_t state) {
         // keycap is JIS, OS layout is US.
         case 14:
             set_single_persistent_default_layer(2);
-            isDefaultLayer = 2;
-            isCurrentLayer = 2;
+            isDefaultLayer = _QWERTY_JIS_US;
             keymap_config.swap_lalt_lgui = true;
             keymap_config.swap_control_capslock = true;
             break;
         // keycap is JIS, OS layout is JIS.
         case 15:
             set_single_persistent_default_layer(3);
-            isDefaultLayer = 3;
-            isCurrentLayer = 3;
+            isDefaultLayer = _QWERTY_JIS_JIS;
             keymap_config.swap_lalt_lgui = true;
             keymap_config.swap_control_capslock = true;
             break;
     }
+    isCurrentLayer = isDefaultLayer;
     return true;
 }
 
@@ -750,41 +719,67 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
     }
 }
 bool oled_task_user(void) {
-    // keymap_config.raw = eeconfig_read_keymap();
     if (!is_keyboard_left()) {
         render_logo();
     } else {
+        oled_clear();
+        char *data = "";
         switch (isCurrentLayer) {
-            case 0:
+            // QWERTY レイヤーの処理
+            case _QWERTY_US_US:
                 // 現在のレイヤーを表示する
-                oled_clear();
-                oled_write_ln_P(
-                    PSTR("Default layer\n- Keycap: US\n- OS Layout: US"),
-                    false
-                );
+                data = "Default layer\n- Keycap: US\n- OS Layout: US";
                 break;
-            case 1:
-                oled_clear();
-                oled_write_ln_P(
-                    PSTR("Default layer\n- Keycap: US\n- OS Layout: JIS"),
-                    false
-                );
+            case _QWERTY_US_JIS:
+                data = "Default layer\n- Keycap: US\n- OS Layout: JIS";
                 break;
-            case 2:
-                oled_clear();
-                oled_write_ln_P(
-                    PSTR("Default layer\n- Keycap: JIS\n- OS Layout: US"),
-                    false
-                );
+            case _QWERTY_JIS_US:
+                data = "Default layer\n- Keycap: JIS\n- OS Layout: US";
                 break;
-            case 3:
-                oled_clear();
-                oled_write_ln_P(
-                    PSTR("Default layer\n- Keycap: JIS\n- OS Layout: JIS"),
-                    false
-                );
+            case _QWERTY_JIS_JIS:
+                data = "Default layer\n- Keycap: JIS\n- OS Layout: JIS";
+                break;
+            // LOWER レイヤーの処理
+            case _LOWER_US_US:
+                data = "Default layer\n- Keycap: US\n- OS Layout: US\nMomentary LOWER";
+                break;
+            case _LOWER_US_JIS:
+                data = "Default layer\n- Keycap: US\n- OS Layout: JIS\nMomentary LOWER";
+                break;
+            case _LOWER_JIS_US:
+                data = "Default layer\n- Keycap: JIS\n- OS Layout: US\nMomentary LOWER";
+                break;
+            case _LOWER_JIS_JIS:
+                data = "Default layer\n- Keycap: JIS\n- OS Layout: JIS\nMomentary LOWER";
+                break;
+            // RAISE レイヤーの処理
+            case _RAISE_US_US:
+                data = "Default layer\n- Keycap: US\n- OS Layout: US\nMomentary RAISE";
+                break;
+            case _RAISE_US_JIS:
+                data = "Default layer\n- Keycap: US\n- OS Layout: JIS\nMomentary RAISE";
+                break;
+            case _RAISE_JIS_US:
+                data = "Default layer\n- Keycap: JIS\n- OS Layout: US\nMomentary RAISE";
+                break;
+            case _RAISE_JIS_JIS:
+                data = "Default layer\n- Keycap: JIS\n- OS Layout: JIS\nMomentary RAISE";
+                break;
+            // ADJUST レイヤーの処理
+            case _ADJUST_US_US:
+                data = "Default layer\n- Keycap: US\n- OS Layout: US\nMomentary ADJUST";
+                break;
+            case _ADJUST_US_JIS:
+                data = "Default layer\n- Keycap: US\n- OS Layout: JIS\nMomentary ADJUST";
+                break;
+            case _ADJUST_JIS_US:
+                data = "Default layer\n- Keycap: JIS\n- OS Layout: US\nMomentary ADJUST";
+                break;
+            case _ADJUST_JIS_JIS:
+                data = "Default layer\n- Keycap: JIS\n- OS Layout: JIS\nMomentary ADJUST";
                 break;
         }
+        oled_write_ln_P(data, false);
         if (keymap_config.swap_lalt_lgui && keymap_config.swap_control_capslock) {
             oled_write_ln_P(
                 PSTR("Alt<->Win ctrl<->caps"),
