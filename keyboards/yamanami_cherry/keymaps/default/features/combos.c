@@ -22,16 +22,16 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
                 tap_code16(LALT(KC_SPACE));
             }
             break;
-        case JK_IME_ON:
-          if (pressed) {
-            tap_code16(KC_LNG1);
-          }
-          break;
-        case DF_IME_OFF:
-          if (pressed) {
-            tap_code16(KC_LNG2);
-          }
-          break;
+        // case JK_IME_ON:
+        //   if (pressed) {
+        //     tap_code16(KC_LNG1);
+        //   }
+        //   break;
+        // case DF_IME_OFF:
+        //   if (pressed) {
+        //     tap_code16(KC_LNG2);
+        //   }
+        //   break;
         case XC_SALT:
             if (pressed) {
                 register_code(KC_LSFT);

@@ -5,22 +5,22 @@
 
 // Defines names for use in layer keycodes and the keymap
 enum layer_number {
-    _QWERTY_US_US = 0, // keycap is US, OS keyboard layout is US.
-    _QWERTY_US_JIS, // keycap is US, OS keyboard layout is JIS.
-    _QWERTY_JIS_US, // keycap is JIS, OS keyboard layout is JIS.
-    _QWERTY_JIS_JIS, // keycap is JIS, OS keyboard layout is JIS.
-    _LOWER_US_US,
-    _LOWER_US_JIS,
-    _LOWER_JIS_US,
-    _LOWER_JIS_JIS,
-    _RAISE_US_US,
-    _RAISE_US_JIS,
-    _RAISE_JIS_US,
-    _RAISE_JIS_JIS,
-    _ADJUST_US_US,
-    _ADJUST_US_JIS,
-    _ADJUST_JIS_US,
-    _ADJUST_JIS_JIS,
+    _QWERTY_UU = 0, // keycap is US, OS keyboard layout is US.
+    _QWERTY_UJ, // keycap is US, OS keyboard layout is JIS.
+    _QWERTY_JU, // keycap is JIS, OS keyboard layout is JIS.
+    _QWERTY_JJ, // keycap is JIS, OS keyboard layout is JIS.
+    _LOWER_UU,
+    _LOWER_UJ,
+    _LOWER_JU,
+    _LOWER_JJ,
+    _RAISE_UU,
+    _RAISE_UJ,
+    _RAISE_JU,
+    _RAISE_JJ,
+    _ADJUST_UU,
+    _ADJUST_UJ,
+    _ADJUST_JU,
+    _ADJUST_JJ,
 };
 
 // External variables

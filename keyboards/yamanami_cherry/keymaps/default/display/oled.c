@@ -62,56 +62,56 @@ bool oled_task_user(void) {
         char *data = "";
         switch (isCurrentLayer) {
             // QWERTY レイヤーの処理
-            case _QWERTY_US_US:
+            case _QWERTY_UU:
                 // 現在のレイヤーを表示する
                 data = "Default layer\n- Keycap: US\n- OS Layout: US";
                 break;
-            case _QWERTY_US_JIS:
+            case _QWERTY_UJ:
                 data = "Default layer\n- Keycap: US\n- OS Layout: JIS";
                 break;
-            case _QWERTY_JIS_US:
+            case _QWERTY_JU:
                 data = "Default layer\n- Keycap: JIS\n- OS Layout: US";
                 break;
-            case _QWERTY_JIS_JIS:
+            case _QWERTY_JJ:
                 data = "Default layer\n- Keycap: JIS\n- OS Layout: JIS";
                 break;
             // LOWER レイヤーの処理
-            case _LOWER_US_US:
+            case _LOWER_UU:
                 data = "Default layer\n- Keycap: US\n- OS Layout: US\nMomentary LOWER";
                 break;
-            case _LOWER_US_JIS:
+            case _LOWER_UJ:
                 data = "Default layer\n- Keycap: US\n- OS Layout: JIS\nMomentary LOWER";
                 break;
-            case _LOWER_JIS_US:
+            case _LOWER_JU:
                 data = "Default layer\n- Keycap: JIS\n- OS Layout: US\nMomentary LOWER";
                 break;
-            case _LOWER_JIS_JIS:
+            case _LOWER_JJ:
                 data = "Default layer\n- Keycap: JIS\n- OS Layout: JIS\nMomentary LOWER";
                 break;
             // RAISE レイヤーの処理
-            case _RAISE_US_US:
+            case _RAISE_UU:
                 data = "Default layer\n- Keycap: US\n- OS Layout: US\nMomentary RAISE";
                 break;
-            case _RAISE_US_JIS:
+            case _RAISE_UJ:
                 data = "Default layer\n- Keycap: US\n- OS Layout: JIS\nMomentary RAISE";
                 break;
-            case _RAISE_JIS_US:
+            case _RAISE_JU:
                 data = "Default layer\n- Keycap: JIS\n- OS Layout: US\nMomentary RAISE";
                 break;
-            case _RAISE_JIS_JIS:
+            case _RAISE_JJ:
                 data = "Default layer\n- Keycap: JIS\n- OS Layout: JIS\nMomentary RAISE";
                 break;
             // ADJUST レイヤーの処理
-            case _ADJUST_US_US:
+            case _ADJUST_UU:
                 data = "Default layer\n- Keycap: US\n- OS Layout: US\nMomentary ADJUST";
                 break;
-            case _ADJUST_US_JIS:
+            case _ADJUST_UJ:
                 data = "Default layer\n- Keycap: US\n- OS Layout: JIS\nMomentary ADJUST";
                 break;
-            case _ADJUST_JIS_US:
+            case _ADJUST_JU:
                 data = "Default layer\n- Keycap: JIS\n- OS Layout: US\nMomentary ADJUST";
                 break;
-            case _ADJUST_JIS_JIS:
+            case _ADJUST_JJ:
                 data = "Default layer\n- Keycap: JIS\n- OS Layout: JIS\nMomentary ADJUST";
                 break;
         }

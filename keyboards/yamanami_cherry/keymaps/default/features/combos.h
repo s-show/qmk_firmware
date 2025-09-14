@@ -8,8 +8,8 @@
 // combo setting start
 enum combo_events {
     SDF_ALT_SPACE,
-    JK_IME_ON,
-    DF_IME_OFF,
+    // JK_IME_ON,
+    // DF_IME_OFF,
     DOTSLSH_ALT,
     ZX_ALT,
     MCOMM_WIN,
@@ -22,8 +22,8 @@ enum combo_events {
 
 // Combo definitions
 extern const uint16_t PROGMEM sdf_combo[];
-extern const uint16_t PROGMEM jk_combo[];
-extern const uint16_t PROGMEM df_combo[];
+// extern const uint16_t PROGMEM jk_combo[];
+// extern const uint16_t PROGMEM df_combo[];
 extern const uint16_t PROGMEM dotslsh_combo[];
 extern const uint16_t PROGMEM zx_combo[];
 extern const uint16_t PROGMEM mcomm_combo[];
