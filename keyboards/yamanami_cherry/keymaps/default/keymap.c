@@ -86,34 +86,34 @@ const key_override_t *key_overrides[] = {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = { \
     // Keycap is US, OS layout is US.
     [_QWERTY_UU] = LAYOUT(
-        KC_TAB,  KC_Q,   KC_W,    KC_E,    KC_R,                   KC_T,          KC_Y,    KC_U,                   KC_I,    KC_O,    KC_P,         KC_GRV,  \
-        KC_LCTL, KC_A,   KC_S,    KC_D,    KC_F,                   KC_G,          KC_H,    KC_J,                   KC_K,    KC_L,    TD(TD_SC_CL), KC_QUOT, \
-        KC_LSFT, KC_Z,   KC_X,    KC_C,    KC_V,                   KC_B,          KC_N,    KC_M,                   KC_COMM, KC_DOT,  KC_SLSH,      KC_ENT,  \
-        WIN_TAB, KC_ESC, KC_LALT, KC_LGUI, LT(_LOWER_UU, KC_LNG2), SFT_T(KC_SPC), KC_BSPC, LT(_RAISE_UU, KC_LNG1), KC_RGUI, KC_RALT, KC_RCTL,      ALT_TAB \
+        KC_TAB,  KC_Q,   KC_W,    KC_E,    KC_R,     KC_T,          KC_Y,    KC_U,     KC_I,    KC_O,    KC_P,         KC_GRV,  \
+        KC_LCTL, KC_A,   KC_S,    KC_D,    KC_F,     KC_G,          KC_H,    KC_J,     KC_K,    KC_L,    TD(TD_SC_CL), KC_QUOT, \
+        KC_LSFT, KC_Z,   KC_X,    KC_C,    KC_V,     KC_B,          KC_N,    KC_M,     KC_COMM, KC_DOT,  KC_SLSH,      KC_ENT,  \
+        WIN_TAB, KC_ESC, KC_LALT, KC_LGUI, LOWER_UU, SFT_T(KC_SPC), KC_BSPC, RAISE_UU, KC_RGUI, KC_RALT, KC_RCTL,      ALT_TAB  \
     ),
 
     // Keycap is US, OS layout is JIS.
     [_QWERTY_UJ] = LAYOUT(
-        KC_TAB,  KC_Q,   KC_W,    KC_E,    KC_R,                   KC_T,          KC_Y,    KC_U,                   KC_I,    KC_O,    KC_P,    JP_GRV, \
-        KC_LCTL, KC_A,   KC_S,    KC_D,    KC_F,                   KC_G,          KC_H,    KC_J,                   KC_K,    KC_L,    KC_SCLN, JP_QUOT, \
-        KC_LSFT, KC_Z,   KC_X,    KC_C,    KC_V,                   KC_B,          KC_N,    KC_M,                   KC_COMM, KC_DOT,  KC_SLSH, KC_ENT, \
-        WIN_TAB, KC_ESC, KC_LALT, KC_LGUI, LT(_LOWER_UJ, KC_LNG2), SFT_T(KC_SPC), KC_BSPC, LT(_RAISE_UJ, KC_LNG1), KC_RGUI, KC_RALT, KC_RCTL, ALT_TAB \
+        KC_TAB,  KC_Q,   KC_W,    KC_E,    KC_R,     KC_T,          KC_Y,    KC_U,     KC_I,    KC_O,    KC_P,    JP_GRV,  \
+        KC_LCTL, KC_A,   KC_S,    KC_D,    KC_F,     KC_G,          KC_H,    KC_J,     KC_K,    KC_L,    KC_SCLN, JP_QUOT, \
+        KC_LSFT, KC_Z,   KC_X,    KC_C,    KC_V,     KC_B,          KC_N,    KC_M,     KC_COMM, KC_DOT,  KC_SLSH, KC_ENT,  \
+        WIN_TAB, KC_ESC, KC_LALT, KC_LGUI, LOWER_UJ, SFT_T(KC_SPC), KC_BSPC, RAISE_UJ, KC_RGUI, KC_RALT, KC_RCTL, ALT_TAB  \
     ),
 
     // Keycap is JIS, OS layout is US.
     [_QWERTY_JU] = LAYOUT(
-        KC_TAB,  KC_Q,   KC_W,    KC_E,    KC_R,                   KC_T,          KC_Y,    KC_U,                   KC_I,    KC_O,    KC_P,    KC_AT,  \
-        KC_LCTL, KC_A,   KC_S,    KC_D,    KC_F,                   KC_G,          KC_H,    KC_J,                   KC_K,    KC_L,    KC_SCLN, KC_COLN, \
-        KC_LSFT, KC_Z,   KC_X,    KC_C,    KC_V,                   KC_B,          KC_N,    KC_M,                   KC_COMM, KC_DOT,  KC_SLSH, KC_ENT,  \
-        WIN_TAB, KC_ESC, KC_LALT, KC_LGUI, LT(_LOWER_JU, KC_LNG2), SFT_T(KC_SPC), KC_BSPC, LT(_RAISE_JU, KC_LNG1), KC_RGUI, KC_RALT, KC_RCTL, ALT_TAB \
+        KC_TAB,  KC_Q,   KC_W,    KC_E,    KC_R,     KC_T,          KC_Y,    KC_U,     KC_I,    KC_O,    KC_P,    KC_AT,   \
+        KC_LCTL, KC_A,   KC_S,    KC_D,    KC_F,     KC_G,          KC_H,    KC_J,     KC_K,    KC_L,    KC_SCLN, KC_COLN, \
+        KC_LSFT, KC_Z,   KC_X,    KC_C,    KC_V,     KC_B,          KC_N,    KC_M,     KC_COMM, KC_DOT,  KC_SLSH, KC_ENT,  \
+        WIN_TAB, KC_ESC, KC_LALT, KC_LGUI, LOWER_JU, SFT_T(KC_SPC), KC_BSPC, RAISE_JU, KC_RGUI, KC_RALT, KC_RCTL, ALT_TAB  \
     ),
 
     // Keycap is JIS, OS layout is JIS.
     [_QWERTY_JJ] = LAYOUT(
-        KC_TAB,  JP_Q,   JP_W,    JP_E,    JP_R,                   JP_T,          JP_Y,    JP_U,                   JP_I,    JP_O,    JP_P,    JP_AT,  \
-        KC_LCTL, JP_A,   JP_S,    JP_D,    JP_F,                   JP_G,          JP_H,    JP_J,                   JP_K,    JP_L,    JP_SCLN, JP_COLN, \
-        KC_LSFT, JP_Z,   JP_X,    JP_C,    JP_V,                   JP_B,          JP_N,    JP_M,                   JP_COMM, JP_DOT,  JP_SLSH, KC_ENT,  \
-        WIN_TAB, KC_ESC, KC_LALT, KC_LGUI, LT(_LOWER_JJ, KC_LNG2), SFT_T(KC_SPC), KC_BSPC, LT(_RAISE_JJ, KC_LNG1), KC_RGUI, KC_RALT, KC_RCTL, ALT_TAB \
+        KC_TAB,  JP_Q,   JP_W,    JP_E,    JP_R,     JP_T,          JP_Y,    JP_U,     JP_I,    JP_O,    JP_P,    JP_AT,   \
+        KC_LCTL, JP_A,   JP_S,    JP_D,    JP_F,     JP_G,          JP_H,    JP_J,     JP_K,    JP_L,    JP_SCLN, JP_COLN, \
+        KC_LSFT, JP_Z,   JP_X,    JP_C,    JP_V,     JP_B,          JP_N,    JP_M,     JP_COMM, JP_DOT,  JP_SLSH, KC_ENT,  \
+        WIN_TAB, KC_ESC, KC_LALT, KC_LGUI, LOWER_JJ, SFT_T(KC_SPC), KC_BSPC, RAISE_JJ, KC_RGUI, KC_RALT, KC_RCTL, ALT_TAB  \
     ),
 
     // Keycap is US, OS layout is US.
@@ -213,12 +213,125 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = { \
         )
 };
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+static bool first_lower_pressed = false;
+static uint16_t first_lower_pressed_time = 0;
+static bool first_raise_pressed = false;
+static uint16_t first_raise_pressed_time = 0;
+
+bool process_record_user(uint16_t keycode, keyrecord_t * record) {
     // ALT+TAB and WIN+TAB functionality
     if (!process_alt_tab(keycode, record)) {
         return false;
     }
 
+    switch (keycode) {
+    case LOWER_UU:
+    case LOWER_UJ:
+    case LOWER_JU:
+    case LOWER_JJ:
+        if (record -> event.pressed) {
+            if (!first_lower_pressed) {
+                first_lower_pressed_time = record -> event.time;
+                // 一回目のタップのフラグがオン & 最初のキー押下から2回目のキー押下までの時間が TAPPING_TERM の2倍超なら
+                // 間隔を空けた2回目のタップと判断する
+            } else if (first_lower_pressed && (TIMER_DIFF_16(record -> event.time, first_lower_pressed_time) > TAPPING_TERM * 2)) {
+                first_lower_pressed_time = record -> event.time;
+                first_lower_pressed = false;
+            }
+            if (keycode == LOWER_UU) {
+                layer_on(_LOWER_UU);
+                update_tri_layer(_LOWER_UU, _RAISE_UU, _ADJUST_UU);
+            } else if (keycode == LOWER_UJ) {
+                layer_on(_LOWER_UJ);
+                update_tri_layer(_LOWER_UJ, _RAISE_UJ, _ADJUST_UJ);
+            } else if (keycode == LOWER_JU) {
+                layer_on(_LOWER_JU);
+                update_tri_layer(_LOWER_JU, _RAISE_JU, _ADJUST_JU);
+            } else {
+                layer_on(_LOWER_JJ);
+                update_tri_layer(_LOWER_JJ, _RAISE_JJ, _ADJUST_JJ);
+            }
+        } else {
+            if (keycode == LOWER_UU) {
+                layer_off(_LOWER_UU);
+                update_tri_layer(_LOWER_UU, _RAISE_UU, _ADJUST_UU);
+            } else if (keycode == LOWER_UJ) {
+                layer_off(_LOWER_UJ);
+                update_tri_layer(_LOWER_UJ, _RAISE_UJ, _ADJUST_UJ);
+            } else if (keycode == LOWER_JU) {
+                layer_off(_LOWER_JU);
+                update_tri_layer(_LOWER_JU, _RAISE_JU, _ADJUST_JU);
+            } else {
+                layer_off(_LOWER_JJ);
+                update_tri_layer(_LOWER_JJ, _RAISE_JJ, _ADJUST_JJ);
+            }
+            // タップのフラグがオフ & 最初のキー押下からキーを離した時までの時間が TAPPING_TERM 未満なら
+            // タップと判断する
+            if (!first_lower_pressed && (TIMER_DIFF_16(record -> event.time, first_lower_pressed_time) < TAPPING_TERM)) {
+                first_lower_pressed = true;
+                // タップのフラグがオン & 最初のキー押下から2回目のタイプでキーを離した時までの時間が TAPPING_TERM の2倍以下なら
+                // ダブルタップと判断する
+            } else if (first_lower_pressed && (TIMER_DIFF_16(record -> event.time, first_lower_pressed_time) <= TAPPING_TERM * 2)) {
+                tap_code(KC_LNG2);
+                first_lower_pressed = false;
+            } else {
+                first_lower_pressed = false;
+            }
+        }
+        return false;
+        break;
+    case RAISE_UU:
+    case RAISE_UJ:
+    case RAISE_JU:
+    case RAISE_JJ:
+        if (record -> event.pressed) {
+            if (!first_raise_pressed) {
+                first_raise_pressed_time = record -> event.time;
+            } else if (first_raise_pressed && (TIMER_DIFF_16(record -> event.time, first_raise_pressed_time) > TAPPING_TERM * 2)) {
+                first_raise_pressed_time = record -> event.time;
+                first_raise_pressed = false;
+            }
+            if (keycode == RAISE_UU) {
+                layer_on(_RAISE_UU);
+                update_tri_layer(_LOWER_UU, _RAISE_UU, _ADJUST_UU);
+            } else if (keycode == RAISE_UJ) {
+                layer_on(_RAISE_UJ);
+                update_tri_layer(_LOWER_UJ, _RAISE_UJ, _ADJUST_UJ);
+            } else if (keycode == RAISE_JU) {
+                layer_on(_RAISE_JU);
+                update_tri_layer(_LOWER_JU, _RAISE_JU, _ADJUST_JU);
+            } else {
+                layer_on(_RAISE_JJ);
+                update_tri_layer(_LOWER_JJ, _RAISE_JJ, _ADJUST_JJ);
+            }
+        } else {
+            if (keycode == RAISE_UU) {
+                layer_off(_RAISE_UU);
+                update_tri_layer(_LOWER_UU, _RAISE_UU, _ADJUST_UU);
+            } else if (keycode == RAISE_UJ) {
+                layer_off(_RAISE_UJ);
+                update_tri_layer(_LOWER_UJ, _RAISE_UJ, _ADJUST_UJ);
+            } else if (keycode == RAISE_JU) {
+                layer_off(_RAISE_JU);
+                update_tri_layer(_LOWER_JU, _RAISE_JU, _ADJUST_JU);
+            } else {
+                layer_off(_RAISE_JJ);
+                update_tri_layer(_LOWER_JJ, _RAISE_JJ, _ADJUST_JJ);
+            }
+            if (!first_raise_pressed && (TIMER_DIFF_16(record -> event.time, first_raise_pressed_time) < TAPPING_TERM)) {
+                first_raise_pressed = true;
+            } else if (first_raise_pressed && (TIMER_DIFF_16(record -> event.time, first_raise_pressed_time) <= TAPPING_TERM * 2)) {
+                tap_code(KC_LNG1);
+                first_raise_pressed = false;
+            } else {
+                first_raise_pressed = false;
+            }
+        }
+        return false;
+        break;
+    }
+    first_lower_pressed = false;
+    first_raise_pressed = false;
     return true;
 }
 
