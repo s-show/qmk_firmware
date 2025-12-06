@@ -31,3 +31,5 @@ Diagnostics:
             invalid_asm_value_for_constraint,
             anyx86_interrupt_attribute,
         ]
+InlayHints:
+  Designators: No
