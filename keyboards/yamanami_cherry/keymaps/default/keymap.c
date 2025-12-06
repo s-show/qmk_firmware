@@ -153,15 +153,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = { \
         KC_AGRV, KC_NO,      KC_PGUP,    KC_ESC,     KC_NO,     KC_TAB, KC_NO,   KC_NO,   KC_INS,  KC_NO,   KC_PSCR, KC_NO,   \
         _______, KC_HOME,    KC_PGDN,    KC_END,     KC_NO,     KC_NO,  KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_NO,   KC_NO,   \
         _______, A(KC_HOME), C(KC_PGDN), C(KC_PGUP), C(KC_END), KC_NO,  KC_NO,   KC_NO,   _______, _______, _______, _______, \
-        _______, _______,    _______,    _______,    _______,   KC_ENT, _______, _______, _______, _______, _______, _______ \
+        _______, _______,    _______,    _______,    _______,   KC_ENT, _______, _______, _______, _______, _______, _______  \
         ),
 
     // Keycap is US, OS layout is JIS.
     [_RAISE_UJ] = LAYOUT( \
-        KC_AGRV, KC_NO,      KC_PGUP,    KC_ESC,     KC_NO,     KC_TAB, KC_NO,   KC_NO,   KC_INS,  KC_NO,   KC_PSCR, KC_NO, \
-        _______, KC_HOME,    KC_PGDN,    KC_END,     KC_NO,     KC_NO,  KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_NO,   KC_NO, \
+        KC_AGRV, KC_NO,      KC_PGUP,    KC_ESC,     KC_NO,     KC_TAB, KC_NO,   KC_NO,   KC_INS,  KC_NO,   KC_PSCR, KC_NO,   \
+        _______, KC_HOME,    KC_PGDN,    KC_END,     KC_NO,     KC_NO,  KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_NO,   KC_NO,   \
         _______, A(KC_HOME), C(KC_PGDN), C(KC_PGUP), C(KC_END), KC_NO,  KC_NO,   KC_NO,   _______, _______, _______, _______, \
-        _______, _______,    _______,    _______,    _______,   KC_ENT, _______, _______, _______, _______, _______, _______ \
+        _______, _______,    _______,    _______,    _______,   KC_ENT, _______, _______, _______, _______, _______, _______  \
         ),
 
     // Keycap is JIS, OS layout is US.
@@ -169,47 +169,47 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = { \
         KC_AGRV, KC_NO,      KC_PGUP,    KC_ESC,     KC_NO,     KC_TAB, KC_NO,   KC_NO,   KC_INS,  KC_NO,   KC_PSCR, KC_NO,   \
         _______, KC_HOME,    KC_PGDN,    KC_END,     KC_NO,     KC_NO,  KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_NO,   KC_NO,   \
         _______, A(KC_HOME), C(KC_PGDN), C(KC_PGUP), C(KC_END), KC_NO,  KC_NO,   KC_NO,   _______, _______, _______, _______, \
-        _______, _______,    _______,    _______,    _______,   KC_ENT, _______, _______, _______, _______, _______, _______ \
+        _______, _______,    _______,    _______,    _______,   KC_ENT, _______, _______, _______, _______, _______, _______  \
         ),
 
     // Keycap is JIS, OS layout is JIS.
     [_RAISE_JJ] = LAYOUT( \
-        KC_AGRV, KC_NO,      KC_PGUP,    KC_ESC,     KC_NO,     KC_TAB, KC_NO,   KC_NO,   KC_INS,  KC_NO,   KC_PSCR, KC_NO, \
-        _______, KC_HOME,    KC_PGDN,    KC_END,     KC_NO,     KC_NO,  KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_NO,   KC_NO, \
+        KC_AGRV, KC_NO,      KC_PGUP,    KC_ESC,     KC_NO,     KC_TAB, KC_NO,   KC_NO,   KC_INS,  KC_NO,   KC_PSCR, KC_NO,   \
+        _______, KC_HOME,    KC_PGDN,    KC_END,     KC_NO,     KC_NO,  KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_NO,   KC_NO,   \
         _______, A(KC_HOME), C(KC_PGDN), C(KC_PGUP), C(KC_END), KC_NO,  KC_NO,   KC_NO,   _______, _______, _______, _______, \
-        _______, _______,    _______,    _______,    _______,   KC_ENT, _______, _______, _______, _______, _______, _______ \
+        _______, _______,    _______,    _______,    _______,   KC_ENT, _______, _______, _______, _______, _______, _______  \
         ),
 
     // Keycap is US, OS layout is US.
     [_ADJUST_UU] =  LAYOUT( \
-        QK_BOOT, KC_EXLM,  KC_AT,   KC_HASH, KC_DLR,        KC_PERC,   KC_CIRC,    KC_AMPR,    KC_ASTR,  KC_LPRN,    KC_RPRN,  KC_NO, \
-        DB_TOGG, KC_ASPC,  KC_NO,   KC_NO,   TD(TD_ALT_F4), G(KC_TAB), A(KC_LEFT), A(KC_DOWN), A(KC_UP), A(KC_RGHT), KC_APSCR, KC_NO,\
-        DB_TOGG, KC_NO,    PDF(1),  PDF(2), PDF(3),         KC_NO,     KC_NO,      KC_NO,      _______,  _______,    _______,  _______, \
-        KC_CAD,  KC_CSESC, _______, _______, _______,       _______,   _______,    _______,    _______,  _______,    _______,  QK_BOOT \
+        QK_BOOT, KC_EXLM,  KC_AT,   KC_HASH, KC_DLR,        KC_PERC,   KC_CIRC,    KC_AMPR,    KC_ASTR,  KC_LPRN,    KC_RPRN,  KC_NO,   \
+        DB_TOGG, KC_ASPC,  KC_NO,   KC_NO,   TD(TD_ALT_F4), G(KC_TAB), A(KC_LEFT), A(KC_DOWN), A(KC_UP), A(KC_RGHT), KC_APSCR, KC_NO,   \
+        DB_TOGG, KC_NO,    KC_NO,   KC_NO,   KC_NO,         KC_NO,     KC_MPRV,    KC_VOLU,    KC_VOLD,  KC_MNXT,    _______,  _______, \
+        KC_CAD,  KC_CSESC, _______, _______, _______,       _______,   _______,    _______,    _______,  _______,    _______,  QK_BOOT  \
         ),
 
     // Keycap is US, OS layout is JIS.
     [_ADJUST_UJ] =  LAYOUT( \
-        QK_BOOT, JP_EXLM,  JP_AT,   JP_HASH, JP_DLR,        JP_PERC,   JP_CIRC,    JP_AMPR,    JP_ASTR,  JP_LPRN,    JP_RPRN,  KC_NO, \
-        DB_TOGG, KC_ASPC,  KC_NO,   KC_NO,   TD(TD_ALT_F4), G(KC_TAB), A(KC_LEFT), A(KC_DOWN), A(KC_UP), A(KC_RGHT), KC_APSCR, KC_NO, \
-        DB_TOGG, PDF(0),   KC_NO,   PDF(2),  PDF(3),        KC_NO,     KC_NO,      KC_NO,      _______,  _______,    _______,  _______, \
-        KC_CAD,  KC_CSESC, _______, _______, _______,       _______,   _______,    _______,    _______,  _______,    _______,  QK_BOOT \
+        QK_BOOT, JP_EXLM,  JP_AT,   JP_HASH, JP_DLR,        JP_PERC,   JP_CIRC,    JP_AMPR,    JP_ASTR,  JP_LPRN,    JP_RPRN,  KC_NO,   \
+        DB_TOGG, KC_ASPC,  KC_NO,   KC_NO,   TD(TD_ALT_F4), G(KC_TAB), A(KC_LEFT), A(KC_DOWN), A(KC_UP), A(KC_RGHT), KC_APSCR, KC_NO,   \
+        DB_TOGG, KC_NO,    KC_NO,   KC_NO,   KC_NO,         KC_NO,     KC_MPRV,    KC_VOLU,    KC_VOLD,  KC_MNXT,    _______,  _______, \
+        KC_CAD,  KC_CSESC, _______, _______, _______,       _______,   _______,    _______,    _______,  _______,    _______,  QK_BOOT  \
         ),
 
     // Keycap is JIS, OS layout is US.
     [_ADJUST_JU] =  LAYOUT( \
         QK_BOOT, KC_EXLM,  KC_DQUO, KC_HASH, KC_DLR,        KC_PERC,   KC_AMPR,    KC_QUOT,    KC_LPRN,  KC_RPRN,    KC_EQL,   KC_TILD, \
-        DB_TOGG, KC_ASPC,  KC_NO,   KC_NO,   TD(TD_ALT_F4), G(KC_TAB), A(KC_LEFT), A(KC_DOWN), A(KC_UP), A(KC_RGHT), KC_APSCR, KC_NO,\
-        DB_TOGG, PDF(0),   PDF(1),  KC_NO,   PDF(3),        KC_NO,     KC_NO,      KC_NO,      _______,  _______,    _______,  _______, \
-        KC_CAD,  KC_CSESC, _______, _______, _______,       _______,   _______,    _______,    _______,  _______,    _______,  QK_BOOT \
+        DB_TOGG, KC_ASPC,  KC_NO,   KC_NO,   TD(TD_ALT_F4), G(KC_TAB), A(KC_LEFT), A(KC_DOWN), A(KC_UP), A(KC_RGHT), KC_APSCR, KC_NO,   \
+        DB_TOGG, KC_NO,    KC_NO,   KC_NO,   KC_NO,         KC_NO,     KC_MPRV,    KC_VOLU,    KC_VOLD,  KC_MNXT,    _______,  _______, \
+        KC_CAD,  KC_CSESC, _______, _______, _______,       _______,   _______,    _______,    _______,  _______,    _______,  QK_BOOT  \
         ),
 
     // Keycap is JIS, OS layout is JIS.
     [_ADJUST_JJ] =  LAYOUT( \
         QK_BOOT, JP_EXLM,  JP_DQUO, JP_HASH, JP_DLR,        JP_PERC,   JP_AMPR,    JP_QUOT,    JP_LPRN,  JP_RPRN,    JP_EQL,   JP_TILD, \
-        DB_TOGG, KC_ASPC,  KC_NO,   KC_NO,   TD(TD_ALT_F4), G(KC_TAB), A(KC_LEFT), A(KC_DOWN), A(KC_UP), A(KC_RGHT), KC_APSCR, KC_NO, \
-        DB_TOGG, PDF(0),   PDF(1),  PDF(2),  KC_NO,         KC_NO,     KC_NO,      KC_NO,      _______,  _______,    _______,  _______, \
-        KC_CAD,  KC_CSESC, _______, _______, _______,       _______,   _______,    _______,    _______,  _______,    _______,  QK_BOOT \
+        DB_TOGG, KC_ASPC,  KC_NO,   KC_NO,   TD(TD_ALT_F4), G(KC_TAB), A(KC_LEFT), A(KC_DOWN), A(KC_UP), A(KC_RGHT), KC_APSCR, KC_NO,   \
+        DB_TOGG, KC_NO,    KC_NO,   KC_NO,   KC_NO,         KC_NO,     KC_MPRV,    KC_VOLU,    KC_VOLD,  KC_MNXT,    _______,  _______, \
+        KC_CAD,  KC_CSESC, _______, _______, _______,       _______,   _______,    _______,    _______,  _______,    _______,  QK_BOOT  \
         )
 };
 
