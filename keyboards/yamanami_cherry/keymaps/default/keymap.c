@@ -1,13 +1,14 @@
 // Copyright 2023 QMK
 // SPDX-License-Identifier: GPL-2.0-or-later
 
+#include "action.h"
 #include QMK_KEYBOARD_H
 #include "keymap_japanese.h"
 #include "layers.h"
 #include "keycodes.h"
 #include "features/combos.h"
 #include "features/overrides.h"
-#include "features/tap_dance.h"
+// #include "features/tap_dance.h"
 #include "display/oled.h"
 #include "features/alt_tab.h"
 #include "features/dip_switch.h"
@@ -27,9 +28,9 @@ enum layer_number isDefaultLayer;
 
 // Combo array - must be in keymap.c for QMK to access
 combo_t key_combos[] = {
-    [SDF_ALT_SPACE] = COMBO_ACTION(sdf_combo),
-    // [JK_IME_ON]     = COMBO_ACTION(jk_combo),
-    // [DF_IME_OFF]    = COMBO_ACTION(df_combo),
+    // [SDF_ALT_SPACE] = COMBO_ACTION(sdf_combo),
+    [JK_IME_ON]     = COMBO_ACTION(jk_combo),
+    [DF_IME_OFF]    = COMBO_ACTION(df_combo),
     [DOTSLSH_ALT]   = COMBO(dotslsh_combo, KC_LALT),
     [ZX_ALT]        = COMBO(zx_combo, KC_LALT),
     [MCOMM_WIN]     = COMBO(mcomm_combo, KC_LWIN),
@@ -41,10 +42,10 @@ combo_t key_combos[] = {
 };
 
 // Tap dance array - must be in keymap.c for QMK to access
-tap_dance_action_t tap_dance_actions[] = {
-    [TD_ALT_F4] = ACTION_TAP_DANCE_DOUBLE(KC_NO, LALT(KC_F4)),
-    [TD_SC_CL]  = ACTION_TAP_DANCE_DOUBLE(KC_SCLN, LSFT(KC_SCLN))
-};
+// tap_dance_action_t tap_dance_actions[] = {
+//     [TD_ALT_F4] = ACTION_TAP_DANCE_DOUBLE(KC_NO, LALT(KC_F4)),
+//     [TD_SC_CL]  = ACTION_TAP_DANCE_DOUBLE(KC_SCLN, LSFT(KC_SCLN))
+// };
 
 // Key overrides array - must be in keymap.c for QMK to access
 const key_override_t *key_overrides[] = {
@@ -86,34 +87,34 @@ const key_override_t *key_overrides[] = {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = { \
     // Keycap is US, OS layout is US.
     [_QWERTY_UU] = LAYOUT(
-        KC_TAB,  KC_Q,   KC_W,    KC_E,    KC_R,     KC_T,          KC_Y,    KC_U,     KC_I,    KC_O,    KC_P,         KC_GRV,  \
-        KC_LCTL, KC_A,   KC_S,    KC_D,    KC_F,     KC_G,          KC_H,    KC_J,     KC_K,    KC_L,    TD(TD_SC_CL), KC_QUOT, \
-        KC_LSFT, KC_Z,   KC_X,    KC_C,    KC_V,     KC_B,          KC_N,    KC_M,     KC_COMM, KC_DOT,  KC_SLSH,      KC_ENT,  \
-        WIN_TAB, KC_ESC, KC_LALT, KC_LGUI, LOWER_UU, SFT_T(KC_SPC), KC_BSPC, RAISE_UU, KC_RGUI, KC_RALT, KC_RCTL,      ALT_TAB  \
+        KC_TAB,  KC_Q,   KC_W,    KC_E,    KC_R,     KC_T,          KC_Y,    KC_U,     KC_I,    KC_O,    KC_P,    KC_GRV,  \
+        KC_LCTL, KC_A,   KC_S,    KC_D,    KC_F,     KC_G,          KC_H,    KC_J,     KC_K,    KC_L,    KC_SCLN, KC_QUOT, \
+        KC_LSFT, KC_Z,   KC_X,    KC_C,    KC_V,     KC_B,          KC_N,    KC_M,     KC_COMM, KC_DOT,  KC_SLSH, KC_ENT, \
+        WIN_TAB, KC_ESC, KC_LALT, KC_LGUI, LOWER_UU, SFT_T(KC_SPC), KC_BSPC, RAISE_UU, KC_RGUI, KC_RALT, KC_LCAG, ALT_TAB \
     ),
 
     // Keycap is US, OS layout is JIS.
     [_QWERTY_UJ] = LAYOUT(
         KC_TAB,  KC_Q,   KC_W,    KC_E,    KC_R,     KC_T,          KC_Y,    KC_U,     KC_I,    KC_O,    KC_P,    JP_GRV,  \
         KC_LCTL, KC_A,   KC_S,    KC_D,    KC_F,     KC_G,          KC_H,    KC_J,     KC_K,    KC_L,    KC_SCLN, JP_QUOT, \
-        KC_LSFT, KC_Z,   KC_X,    KC_C,    KC_V,     KC_B,          KC_N,    KC_M,     KC_COMM, KC_DOT,  KC_SLSH, KC_ENT,  \
-        WIN_TAB, KC_ESC, KC_LALT, KC_LGUI, LOWER_UJ, SFT_T(KC_SPC), KC_BSPC, RAISE_UJ, KC_RGUI, KC_RALT, KC_RCTL, ALT_TAB  \
+        KC_LSFT, KC_Z,   KC_X,    KC_C,    KC_V,     KC_B,          KC_N,    KC_M,     KC_COMM, KC_DOT,  KC_SLSH, KC_ENT, \
+        WIN_TAB, KC_ESC, KC_LALT, KC_LGUI, LOWER_UJ, SFT_T(KC_SPC), KC_BSPC, RAISE_UJ, KC_RGUI, KC_RALT, KC_LCAG, ALT_TAB \
     ),
 
     // Keycap is JIS, OS layout is US.
     [_QWERTY_JU] = LAYOUT(
         KC_TAB,  KC_Q,   KC_W,    KC_E,    KC_R,     KC_T,          KC_Y,    KC_U,     KC_I,    KC_O,    KC_P,    KC_AT,   \
         KC_LCTL, KC_A,   KC_S,    KC_D,    KC_F,     KC_G,          KC_H,    KC_J,     KC_K,    KC_L,    KC_SCLN, KC_COLN, \
-        KC_LSFT, KC_Z,   KC_X,    KC_C,    KC_V,     KC_B,          KC_N,    KC_M,     KC_COMM, KC_DOT,  KC_SLSH, KC_ENT,  \
-        WIN_TAB, KC_ESC, KC_LALT, KC_LGUI, LOWER_JU, SFT_T(KC_SPC), KC_BSPC, RAISE_JU, KC_RGUI, KC_RALT, KC_RCTL, ALT_TAB  \
+        KC_LSFT, KC_Z,   KC_X,    KC_C,    KC_V,     KC_B,          KC_N,    KC_M,     KC_COMM, KC_DOT,  KC_SLSH, KC_ENT, \
+        WIN_TAB, KC_ESC, KC_LALT, KC_LGUI, LOWER_JU, SFT_T(KC_SPC), KC_BSPC, RAISE_JU, KC_RGUI, KC_RALT, KC_LCAG, ALT_TAB \
     ),
 
     // Keycap is JIS, OS layout is JIS.
     [_QWERTY_JJ] = LAYOUT(
         KC_TAB,  JP_Q,   JP_W,    JP_E,    JP_R,     JP_T,          JP_Y,    JP_U,     JP_I,    JP_O,    JP_P,    JP_AT,   \
         KC_LCTL, JP_A,   JP_S,    JP_D,    JP_F,     JP_G,          JP_H,    JP_J,     JP_K,    JP_L,    JP_SCLN, JP_COLN, \
-        KC_LSFT, JP_Z,   JP_X,    JP_C,    JP_V,     JP_B,          JP_N,    JP_M,     JP_COMM, JP_DOT,  JP_SLSH, KC_ENT,  \
-        WIN_TAB, KC_ESC, KC_LALT, KC_LGUI, LOWER_JJ, SFT_T(KC_SPC), KC_BSPC, RAISE_JJ, KC_RGUI, KC_RALT, KC_RCTL, ALT_TAB  \
+        KC_LSFT, JP_Z,   JP_X,    JP_C,    JP_V,     JP_B,          JP_N,    JP_M,     JP_COMM, JP_DOT,  JP_SLSH, KC_ENT, \
+        WIN_TAB, KC_ESC, KC_LALT, KC_LGUI, LOWER_JJ, SFT_T(KC_SPC), KC_BSPC, RAISE_JJ, KC_RGUI, KC_RALT, KC_LCAG, ALT_TAB \
     ),
 
     // Keycap is US, OS layout is US.
@@ -122,7 +123,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = { \
         _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_MINS, KC_EQL,  KC_LBRC, KC_RBRC, _______,   \
         _______, KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_APP,  KC_LPRN, KC_RPRN, _______, _______, \
         _______, _______, _______, _______, _______, _______, KC_DEL,  _______, _______, _______, _______, _______ \
-        ),
+    ),
 
     // Keycap is US, OS layout is JIS.
     [_LOWER_UJ] = LAYOUT( \
@@ -130,7 +131,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = { \
         _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_MINS, JP_EQL,  JP_LBRC, JP_RBRC, _______, \
         _______, KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_APP,  JP_LPRN, JP_RPRN, _______, _______, \
         _______, _______, _______, _______, _______, _______, KC_DEL,  _______, _______, _______, _______, _______ \
-        ),
+    ),
 
     // Keycap is JIS, OS layout is US.
     [_LOWER_JU] = LAYOUT( \
@@ -138,7 +139,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = { \
         _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_MINS, KC_CIRC, KC_LBRC, KC_RBRC, _______,   \
         _______, KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_APP,  KC_LPRN, KC_RPRN, _______, KC_BSLS, \
         _______, _______, _______, _______, _______, _______, KC_DEL,  _______, _______, _______, _______, _______ \
-        ),
+    ),
 
     // Keycap is JIS, OS layout is JIS.
     [_LOWER_JJ] = LAYOUT( \
@@ -146,7 +147,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = { \
         _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   JP_MINS, JP_CIRC, JP_LBRC, JP_RBRC, _______,   \
         _______, KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_APP,  JP_LPRN, JP_RPRN, _______, JP_BSLS, \
         _______, _______, _______, _______, _______, _______, KC_DEL,  _______, _______, _______, _______, _______ \
-        ),
+    ),
 
     // Keycap is US, OS layout is US.
     [_RAISE_UU] = LAYOUT( \
@@ -154,7 +155,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = { \
         _______, KC_HOME,    KC_PGDN,    KC_END,     KC_NO,     KC_NO,  KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_NO,   KC_NO,   \
         _______, A(KC_HOME), C(KC_PGDN), C(KC_PGUP), C(KC_END), KC_NO,  KC_MPRV, KC_VOLD, KC_VOLU, KC_MNXT, _______, _______, \
         _______, _______,    _______,    _______,    _______,   KC_ENT, _______, _______, _______, _______, _______, _______  \
-        ),
+    ),
 
     // Keycap is US, OS layout is JIS.
     [_RAISE_UJ] = LAYOUT( \
@@ -162,7 +163,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = { \
         _______, KC_HOME,    KC_PGDN,    KC_END,     KC_NO,     KC_NO,  KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_NO,   KC_NO,   \
         _______, A(KC_HOME), C(KC_PGDN), C(KC_PGUP), C(KC_END), KC_NO,  KC_MPRV, KC_VOLD, KC_VOLU, KC_MNXT, _______, _______, \
         _______, _______,    _______,    _______,    _______,   KC_ENT, _______, _______, _______, _______, _______, _______  \
-        ),
+    ),
 
     // Keycap is JIS, OS layout is US.
     [_RAISE_JU] = LAYOUT( \
@@ -170,7 +171,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = { \
         _______, KC_HOME,    KC_PGDN,    KC_END,     KC_NO,     KC_NO,  KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_NO,   KC_NO,   \
         _______, A(KC_HOME), C(KC_PGDN), C(KC_PGUP), C(KC_END), KC_NO,  KC_MPRV, KC_VOLD, KC_VOLU, KC_MNXT, _______, _______, \
         _______, _______,    _______,    _______,    _______,   KC_ENT, _______, _______, _______, _______, _______, _______  \
-        ),
+    ),
 
     // Keycap is JIS, OS layout is JIS.
     [_RAISE_JJ] = LAYOUT( \
@@ -178,39 +179,39 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = { \
         _______, KC_HOME,    KC_PGDN,    KC_END,     KC_NO,     KC_NO,  KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_NO,   KC_NO,   \
         _______, A(KC_HOME), C(KC_PGDN), C(KC_PGUP), C(KC_END), KC_NO,  KC_MPRV, KC_VOLD, KC_VOLU, KC_MNXT, _______, _______, \
         _______, _______,    _______,    _______,    _______,   KC_ENT, _______, _______, _______, _______, _______, _______  \
-        ),
+    ),
 
     // Keycap is US, OS layout is US.
     [_ADJUST_UU] =  LAYOUT( \
-        QK_BOOT, KC_EXLM,  KC_AT,   KC_HASH, KC_DLR,        KC_PERC,   KC_CIRC,    KC_AMPR,    KC_ASTR,  KC_LPRN,    KC_RPRN,  KC_NO,   \
-        DB_TOGG, KC_ASPC,  KC_NO,   KC_NO,   TD(TD_ALT_F4), G(KC_TAB), A(KC_LEFT), A(KC_DOWN), A(KC_UP), A(KC_RGHT), KC_APSCR, KC_NO,   \
-        DB_TOGG, KC_NO,    KC_NO,   KC_NO,   KC_NO,         KC_NO,     KC_NO,      KC_NO,      _______,  _______,    _______,  _______, \
-        KC_CAD,  KC_CSESC, _______, _______, _______,       _______,   _______,    _______,    _______,  _______,    _______,  QK_BOOT  \
-        ),
+        QK_BOOT, KC_EXLM,  KC_AT,   KC_HASH, KC_DLR,    KC_PERC,   KC_CIRC,    KC_AMPR,    KC_ASTR,  KC_LPRN,    KC_RPRN,  KC_NO,   \
+        DB_TOGG, KC_ASPC,  KC_NO,   KC_NO,   A(KC_TAB), G(KC_TAB), A(KC_LEFT), A(KC_DOWN), A(KC_UP), A(KC_RGHT), KC_APSCR, KC_NO,   \
+        DB_TOGG, KC_NO,    KC_NO,   KC_NO,   KC_NO,     KC_NO,     KC_NO,      KC_NO,      _______,  _______,    _______,  _______, \
+        KC_CAD,  KC_CSESC, _______, _______, _______,   _______,   _______,    _______,    _______,  _______,    _______,  QK_BOOT  \
+    ),
 
     // Keycap is US, OS layout is JIS.
     [_ADJUST_UJ] =  LAYOUT( \
-        QK_BOOT, JP_EXLM,  JP_AT,   JP_HASH, JP_DLR,        JP_PERC,   JP_CIRC,    JP_AMPR,    JP_ASTR,  JP_LPRN,    JP_RPRN,  KC_NO,   \
-        DB_TOGG, KC_ASPC,  KC_NO,   KC_NO,   TD(TD_ALT_F4), G(KC_TAB), A(KC_LEFT), A(KC_DOWN), A(KC_UP), A(KC_RGHT), KC_APSCR, KC_NO,   \
-        DB_TOGG, KC_NO,    KC_NO,   KC_NO,   KC_NO,         KC_NO,     KC_NO,      KC_NO,      _______,  _______,    _______,  _______, \
-        KC_CAD,  KC_CSESC, _______, _______, _______,       _______,   _______,    _______,    _______,  _______,    _______,  QK_BOOT  \
-        ),
+        QK_BOOT, JP_EXLM,  JP_AT,   JP_HASH, JP_DLR,    JP_PERC,   JP_CIRC,    JP_AMPR,    JP_ASTR,  JP_LPRN,    JP_RPRN,  KC_NO,   \
+        DB_TOGG, KC_ASPC,  KC_NO,   KC_NO,   A(KC_TAB), G(KC_TAB), A(KC_LEFT), A(KC_DOWN), A(KC_UP), A(KC_RGHT), KC_APSCR, KC_NO,   \
+        DB_TOGG, KC_NO,    KC_NO,   KC_NO,   KC_NO,     KC_NO,     KC_NO,      KC_NO,      _______,  _______,    _______,  _______, \
+        KC_CAD,  KC_CSESC, _______, _______, _______,   _______,   _______,    _______,    _______,  _______,    _______,  QK_BOOT  \
+    ),
 
     // Keycap is JIS, OS layout is US.
     [_ADJUST_JU] =  LAYOUT( \
-        QK_BOOT, KC_EXLM,  KC_DQUO, KC_HASH, KC_DLR,        KC_PERC,   KC_AMPR,    KC_QUOT,    KC_LPRN,  KC_RPRN,    KC_EQL,   KC_TILD, \
-        DB_TOGG, KC_ASPC,  KC_NO,   KC_NO,   TD(TD_ALT_F4), G(KC_TAB), A(KC_LEFT), A(KC_DOWN), A(KC_UP), A(KC_RGHT), KC_APSCR, KC_NO,   \
-        DB_TOGG, KC_NO,    KC_NO,   KC_NO,   KC_NO,         KC_NO,     KC_NO,      KC_NO,      _______,  _______,    _______,  _______, \
-        KC_CAD,  KC_CSESC, _______, _______, _______,       _______,   _______,    _______,    _______,  _______,    _______,  QK_BOOT  \
-        ),
+        QK_BOOT, KC_EXLM,  KC_DQUO, KC_HASH, KC_DLR,    KC_PERC,   KC_AMPR,    KC_QUOT,    KC_LPRN,  KC_RPRN,    KC_EQL,   KC_TILD, \
+        DB_TOGG, KC_ASPC,  KC_NO,   KC_NO,   A(KC_TAB), G(KC_TAB), A(KC_LEFT), A(KC_DOWN), A(KC_UP), A(KC_RGHT), KC_APSCR, KC_NO,   \
+        DB_TOGG, KC_NO,    KC_NO,   KC_NO,   KC_NO,     KC_NO,     KC_NO,      KC_NO,      _______,  _______,    _______,  _______, \
+        KC_CAD,  KC_CSESC, _______, _______, _______,   _______,   _______,    _______,    _______,  _______,    _______,  QK_BOOT  \
+    ),
 
     // Keycap is JIS, OS layout is JIS.
     [_ADJUST_JJ] =  LAYOUT( \
-        QK_BOOT, JP_EXLM,  JP_DQUO, JP_HASH, JP_DLR,        JP_PERC,   JP_AMPR,    JP_QUOT,    JP_LPRN,  JP_RPRN,    JP_EQL,   JP_TILD, \
-        DB_TOGG, KC_ASPC,  KC_NO,   KC_NO,   TD(TD_ALT_F4), G(KC_TAB), A(KC_LEFT), A(KC_DOWN), A(KC_UP), A(KC_RGHT), KC_APSCR, KC_NO,   \
-        DB_TOGG, KC_NO,    KC_NO,   KC_NO,   KC_NO,         KC_NO,     KC_NO,      KC_NO,      _______,  _______,    _______,  _______, \
-        KC_CAD,  KC_CSESC, _______, _______, _______,       _______,   _______,    _______,    _______,  _______,    _______,  QK_BOOT  \
-        )
+        QK_BOOT, JP_EXLM,  JP_DQUO, JP_HASH, JP_DLR,    JP_PERC,   JP_AMPR,    JP_QUOT,    JP_LPRN,  JP_RPRN,    JP_EQL,   JP_TILD, \
+        DB_TOGG, KC_ASPC,  KC_NO,   KC_NO,   A(KC_TAB), G(KC_TAB), A(KC_LEFT), A(KC_DOWN), A(KC_UP), A(KC_RGHT), KC_APSCR, KC_NO,   \
+        DB_TOGG, KC_NO,    KC_NO,   KC_NO,   KC_NO,     KC_NO,     KC_NO,      KC_NO,      _______,  _______,    _______,  _______, \
+        KC_CAD,  KC_CSESC, _______, _______, _______,   _______,   _______,    _______,    _______,  _______,    _______,  QK_BOOT  \
+    )
 };
 
 static bool first_lower_pressed = false;
@@ -329,6 +330,18 @@ bool process_record_user(uint16_t keycode, keyrecord_t * record) {
         }
         return false;
         break;
+        case KC_LCAG:
+            if (record -> event.pressed) {
+                register_code(KC_LCTL);
+                register_code(KC_LALT);
+                register_code(KC_LWIN);
+            } else {
+                unregister_code(KC_LCTL);
+                unregister_code(KC_LALT);
+                unregister_code(KC_LWIN);
+            }
+            return false;
+            break;
     }
     first_lower_pressed = false;
     first_raise_pressed = false;
