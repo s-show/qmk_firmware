@@ -18,6 +18,7 @@
             # Python と uv を追加（Serena MCP のため）
             python311
             uv
+            clang-tools
           ];
           shellHook = ''
             echo "Entering custom Nix shell..."
