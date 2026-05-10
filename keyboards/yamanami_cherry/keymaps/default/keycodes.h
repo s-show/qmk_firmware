@@ -41,4 +41,4 @@
 #define RAISE_UJ 0x7E48
 #define RAISE_JU 0x7E49
 #define RAISE_JJ 0x7E4A
-#define KC_LCAG  0x7E4B
+#define KOMOREBI 0x7E4B

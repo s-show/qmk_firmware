@@ -25,6 +25,17 @@ enum layer_number isDefaultLayer;
 #define KC_CSESC LCTL(LSFT(KC_ESC))
 #define IMEON    KC_LNG1
 #define IMEOFF   KC_LNG2
+#define CAG_H    LCAG(KC_H)
+#define CAG_J    LCAG(KC_J)
+#define CAG_K    LCAG(KC_K)
+#define CAG_L    LCAG(KC_I)
+#define CAG_LBRC LCAG(KC_LBRC)
+#define CAG_RBRC LCAG(KC_RBRC)
+#define CAG_1    LCAG(KC_1)
+#define CAG_2    LCAG(KC_2)
+#define CAG_3    LCAG(KC_3)
+#define CAG_4    LCAG(KC_4)
+#define CAG_5    LCAG(KC_5)
 
 // Combo array - must be in keymap.c for QMK to access
 combo_t key_combos[] = {
@@ -90,7 +101,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = { \
         KC_TAB,  KC_Q,   KC_W,    KC_E,    KC_R,     KC_T,          KC_Y,    KC_U,     KC_I,    KC_O,    KC_P,    KC_GRV,  \
         KC_LCTL, KC_A,   KC_S,    KC_D,    KC_F,     KC_G,          KC_H,    KC_J,     KC_K,    KC_L,    KC_SCLN, KC_QUOT, \
         KC_LSFT, KC_Z,   KC_X,    KC_C,    KC_V,     KC_B,          KC_N,    KC_M,     KC_COMM, KC_DOT,  KC_SLSH, KC_ENT, \
-        WIN_TAB, KC_ESC, KC_LALT, KC_LGUI, LOWER_UU, SFT_T(KC_SPC), KC_BSPC, RAISE_UU, KC_RGUI, KC_RALT, KC_LCAG, ALT_TAB \
+        WIN_TAB, KC_ESC, KC_LALT, KC_LGUI, LOWER_UU, SFT_T(KC_SPC), KC_BSPC, RAISE_UU, KC_RGUI, KC_RALT, KOMOREBI, ALT_TAB \
     ),
 
     // Keycap is US, OS layout is JIS.
@@ -98,7 +109,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = { \
         KC_TAB,  KC_Q,   KC_W,    KC_E,    KC_R,     KC_T,          KC_Y,    KC_U,     KC_I,    KC_O,    KC_P,    JP_GRV,  \
         KC_LCTL, KC_A,   KC_S,    KC_D,    KC_F,     KC_G,          KC_H,    KC_J,     KC_K,    KC_L,    KC_SCLN, JP_QUOT, \
         KC_LSFT, KC_Z,   KC_X,    KC_C,    KC_V,     KC_B,          KC_N,    KC_M,     KC_COMM, KC_DOT,  KC_SLSH, KC_ENT, \
-        WIN_TAB, KC_ESC, KC_LALT, KC_LGUI, LOWER_UJ, SFT_T(KC_SPC), KC_BSPC, RAISE_UJ, KC_RGUI, KC_RALT, KC_LCAG, ALT_TAB \
+        WIN_TAB, KC_ESC, KC_LALT, KC_LGUI, LOWER_UJ, SFT_T(KC_SPC), KC_BSPC, RAISE_UJ, KC_RGUI, KC_RALT, KOMOREBI, ALT_TAB \
     ),
 
     // Keycap is JIS, OS layout is US.
@@ -106,7 +117,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = { \
         KC_TAB,  KC_Q,   KC_W,    KC_E,    KC_R,     KC_T,          KC_Y,    KC_U,     KC_I,    KC_O,    KC_P,    KC_AT,   \
         KC_LCTL, KC_A,   KC_S,    KC_D,    KC_F,     KC_G,          KC_H,    KC_J,     KC_K,    KC_L,    KC_SCLN, KC_COLN, \
         KC_LSFT, KC_Z,   KC_X,    KC_C,    KC_V,     KC_B,          KC_N,    KC_M,     KC_COMM, KC_DOT,  KC_SLSH, KC_ENT, \
-        WIN_TAB, KC_ESC, KC_LALT, KC_LGUI, LOWER_JU, SFT_T(KC_SPC), KC_BSPC, RAISE_JU, KC_RGUI, KC_RALT, KC_LCAG, ALT_TAB \
+        WIN_TAB, KC_ESC, KC_LALT, KC_LGUI, LOWER_JU, SFT_T(KC_SPC), KC_BSPC, RAISE_JU, KC_RGUI, KC_RALT, KOMOREBI, ALT_TAB \
     ),
 
     // Keycap is JIS, OS layout is JIS.
@@ -114,7 +125,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = { \
         KC_TAB,  JP_Q,   JP_W,    JP_E,    JP_R,     JP_T,          JP_Y,    JP_U,     JP_I,    JP_O,    JP_P,    JP_AT,   \
         KC_LCTL, JP_A,   JP_S,    JP_D,    JP_F,     JP_G,          JP_H,    JP_J,     JP_K,    JP_L,    JP_SCLN, JP_COLN, \
         KC_LSFT, JP_Z,   JP_X,    JP_C,    JP_V,     JP_B,          JP_N,    JP_M,     JP_COMM, JP_DOT,  JP_SLSH, KC_ENT, \
-        WIN_TAB, KC_ESC, KC_LALT, KC_LGUI, LOWER_JJ, SFT_T(KC_SPC), KC_BSPC, RAISE_JJ, KC_RGUI, KC_RALT, KC_LCAG, ALT_TAB \
+        WIN_TAB, KC_ESC, KC_LALT, KC_LGUI, LOWER_JJ, SFT_T(KC_SPC), KC_BSPC, RAISE_JJ, KC_RGUI, KC_RALT, KOMOREBI, ALT_TAB \
     ),
 
     // Keycap is US, OS layout is US.
@@ -154,7 +165,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = { \
         KC_AGRV, A(KC_F4),   KC_PGUP,    KC_ESC,     KC_NO,     KC_TAB, KC_NO,   KC_NO,   KC_INS,  KC_NO,   KC_PSCR, KC_NO,   \
         _______, KC_HOME,    KC_PGDN,    KC_END,     KC_NO,     KC_NO,  KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_NO,   KC_NO,   \
         _______, A(KC_HOME), C(KC_PGDN), C(KC_PGUP), C(KC_END), KC_NO,  KC_MPRV, KC_VOLD, KC_VOLU, KC_MNXT, _______, _______, \
-        _______, _______,    _______,    _______,    _______,   KC_ENT, _______, _______, _______, _______, _______, _______  \
+        _______, _______,    _______,    _______,    _______,   KC_ENT, _______, _______, _______, _______, CAG_LBRC, CAG_RBRC  \
     ),
 
     // Keycap is US, OS layout is JIS.
@@ -162,7 +173,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = { \
         KC_AGRV, A(KC_F4),   KC_PGUP,    KC_ESC,     KC_NO,     KC_TAB, KC_NO,   KC_NO,   KC_INS,  KC_NO,   KC_PSCR, KC_NO,   \
         _______, KC_HOME,    KC_PGDN,    KC_END,     KC_NO,     KC_NO,  KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_NO,   KC_NO,   \
         _______, A(KC_HOME), C(KC_PGDN), C(KC_PGUP), C(KC_END), KC_NO,  KC_MPRV, KC_VOLD, KC_VOLU, KC_MNXT, _______, _______, \
-        _______, _______,    _______,    _______,    _______,   KC_ENT, _______, _______, _______, _______, _______, _______  \
+        _______, _______,    _______,    _______,    _______,   KC_ENT, _______, _______, _______, _______, CAG_LBRC, CAG_RBRC  \
     ),
 
     // Keycap is JIS, OS layout is US.
@@ -170,7 +181,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = { \
         KC_AGRV, A(KC_F4),   KC_PGUP,    KC_ESC,     KC_NO,     KC_TAB, KC_NO,   KC_NO,   KC_INS,  KC_NO,   KC_PSCR, KC_NO,   \
         _______, KC_HOME,    KC_PGDN,    KC_END,     KC_NO,     KC_NO,  KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_NO,   KC_NO,   \
         _______, A(KC_HOME), C(KC_PGDN), C(KC_PGUP), C(KC_END), KC_NO,  KC_MPRV, KC_VOLD, KC_VOLU, KC_MNXT, _______, _______, \
-        _______, _______,    _______,    _______,    _______,   KC_ENT, _______, _______, _______, _______, _______, _______  \
+        _______, _______,    _______,    _______,    _______,   KC_ENT, _______, _______, _______, _______, CAG_LBRC, CAG_RBRC  \
     ),
 
     // Keycap is JIS, OS layout is JIS.
@@ -178,7 +189,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = { \
         KC_AGRV, A(KC_F4),   KC_PGUP,    KC_ESC,     KC_NO,     KC_TAB, KC_NO,   KC_NO,   KC_INS,  KC_NO,   KC_PSCR, KC_NO,   \
         _______, KC_HOME,    KC_PGDN,    KC_END,     KC_NO,     KC_NO,  KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_NO,   KC_NO,   \
         _______, A(KC_HOME), C(KC_PGDN), C(KC_PGUP), C(KC_END), KC_NO,  KC_MPRV, KC_VOLD, KC_VOLU, KC_MNXT, _______, _______, \
-        _______, _______,    _______,    _______,    _______,   KC_ENT, _______, _______, _______, _______, _______, _______  \
+        _______, _______,    _______,    _______,    _______,   KC_ENT, _______, _______, _______, _______, CAG_LBRC, CAG_RBRC  \
     ),
 
     // Keycap is US, OS layout is US.
@@ -211,7 +222,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = { \
         DB_TOGG, KC_ASPC,  KC_NO,   KC_NO,   A(KC_TAB), G(KC_TAB), A(KC_LEFT), A(KC_DOWN), A(KC_UP), A(KC_RGHT), KC_APSCR, KC_NO,   \
         DB_TOGG, KC_NO,    KC_NO,   KC_NO,   KC_NO,     KC_NO,     KC_NO,      KC_NO,      _______,  _______,    _______,  _______, \
         KC_CAD,  KC_CSESC, _______, _______, _______,   _______,   _______,    _______,    _______,  _______,    _______,  QK_BOOT  \
-    )
+    ),
+
+    // Keycap for komorebi
+    [_KOMOREBI] =  LAYOUT( \
+        KC_NO,   CAG_1, CAG_2, CAG_3, CAG_4, CAG_5, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,    KC_NO, \
+        _______, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, CAG_H, CAG_J, CAG_K, CAG_L, CAG_LBRC, CAG_RBRC,   \
+        _______, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,    KC_NO, \
+        KC_NO,   KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KOMOREBI, KC_NO  \
+    ),
 };
 
 static bool first_lower_pressed = false;
@@ -330,18 +349,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t * record) {
         }
         return false;
         break;
-        case KC_LCAG:
-            if (record -> event.pressed) {
-                register_code(KC_LCTL);
-                register_code(KC_LALT);
-                register_code(KC_LWIN);
-            } else {
-                unregister_code(KC_LCTL);
-                unregister_code(KC_LALT);
-                unregister_code(KC_LWIN);
-            }
-            return false;
-            break;
+    case KOMOREBI:
+        if (record -> event.pressed) {
+            layer_invert(_KOMOREBI);
+        }
+        return false;
+        break;
     }
     first_lower_pressed = false;
     first_raise_pressed = false;

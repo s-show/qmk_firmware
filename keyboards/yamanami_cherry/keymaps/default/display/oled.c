@@ -114,6 +114,9 @@ bool oled_task_user(void) {
             case _ADJUST_JJ:
                 data = "Default layer\n- Keycap: JIS\n- OS Layout: JIS\nMomentary ADJUST";
                 break;
+            case _KOMOREBI:
+                data = "Default layer\n- Keycap: JIS\n- OS Layout: JIS\nMomentary KOMOREBI";
+                break;
         }
         oled_write_ln_P(data, false);
         if (keymap_config.swap_lalt_lgui && keymap_config.swap_control_capslock) {

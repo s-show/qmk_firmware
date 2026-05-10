@@ -21,6 +21,7 @@ enum layer_number {
     _ADJUST_UJ,
     _ADJUST_JU,
     _ADJUST_JJ,
+    _KOMOREBI,
 };
 
 // External variables

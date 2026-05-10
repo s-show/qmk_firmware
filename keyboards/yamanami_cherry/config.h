@@ -36,3 +36,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define COMBO_ONLY_FROM_LAYER 0
 #define EXTRA_SHORT_COMBOS  // 同時押しするキー数を6つまでに制限
 #define COMBO_TERM 30
+
+// レイヤー数を32に拡張
+#define LAYER_STATE_32BIT
